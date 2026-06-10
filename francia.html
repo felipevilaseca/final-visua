@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Francia · Inserción en el primer mundo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary:          #0066cc;
+      --accent:           #4a82c4;
+      --ink:              #1d1d1f;
+      --ink-muted-48:     #7a7a7a;
+      --hairline:         #e0e0e0;
+      --canvas:           #ffffff;
+      --canvas-parchment: #f5f5f7;
+      --surface-black:    #000000;
+      --r-lg: 18px;
+      --ff-d: "SF Pro Display", Inter, system-ui, -apple-system, sans-serif;
+      --ff-t: "SF Pro Text",    Inter, system-ui, -apple-system, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--canvas); color: var(--ink); font-family: var(--ff-t); font-size: 17px; line-height: 1.47; letter-spacing: -0.374px; -webkit-font-smoothing: antialiased; }
+
+    nav.top-nav { position: sticky; top: 0; z-index: 200; background: var(--surface-black); height: 44px; display: flex; align-items: center; padding: 0 22px; }
+    .nav-inner { width: 100%; max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .nav-back { display: flex; align-items: center; gap: 5px; font-family: var(--ff-t); font-size: 12px; color: rgba(255,255,255,0.65); text-decoration: none; transition: color .15s; flex-shrink: 0; }
+    .nav-back:hover { color: #fff; }
+    .nav-back svg { width: 14px; height: 14px; }
+    .nav-title { font-family: var(--ff-d); font-size: 12px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .nav-current { font-family: var(--ff-t); font-size: 12px; color: rgba(255,255,255,0.65); flex-shrink: 0; }
+
+    .country-switcher { background: var(--canvas-parchment); border-bottom: 1px solid var(--hairline); padding: 0 24px; }
+    .switcher-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: center; height: 48px; }
+    .sw-item { display: flex; align-items: center; gap: 8px; padding: 0 20px; height: 100%; text-decoration: none; font-family: var(--ff-t); font-size: 13px; color: var(--ink-muted-48); border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; white-space: nowrap; }
+    .sw-item img { width: 20px; height: auto; border-radius: 2px; display: block; }
+    .sw-item:hover { color: var(--ink); }
+    .sw-item.active { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
+
+    #hero { background: var(--canvas); padding: 64px 24px 56px; border-bottom: 1px solid var(--hairline); }
+    .hero-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+    .hero-text { flex: 1; min-width: 280px; }
+    .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--ink-muted-48); margin-bottom: 16px; }
+    .breadcrumb a { color: var(--primary); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    #hero h1 { font-family: var(--ff-d); font-size: clamp(44px, 7vw, 72px); font-weight: 600; line-height: 1.04; letter-spacing: -0.4px; color: var(--ink); margin-bottom: 14px; }
+    #hero .hero-sub { font-family: var(--ff-d); font-size: clamp(16px, 2.2vw, 22px); font-weight: 400; line-height: 1.35; color: var(--ink-muted-48); max-width: 500px; margin-bottom: 36px; }
+    .stats-strip { display: flex; gap: 36px; flex-wrap: wrap; padding: 24px 0; border-top: 1px solid var(--hairline); }
+    .stat { display: flex; flex-direction: column; gap: 4px; }
+    .stat-num { font-family: var(--ff-d); font-size: clamp(26px, 3vw, 38px); font-weight: 600; line-height: 1; color: var(--accent); }
+    .stat-label { font-family: var(--ff-t); font-size: 11px; color: var(--ink-muted-48); }
+    .hero-flag-wrap { flex-shrink: 0; width: clamp(100px, 18vw, 180px); }
+    .hero-flag-wrap img { width: 100%; height: auto; border-radius: 8px; box-shadow: 3px 5px 30px rgba(0,0,0,0.18); display: block; }
+
+    .viz-section { border-top: 1px solid var(--hairline); background: var(--canvas); }
+    .viz-text { padding: 56px 24px 40px; max-width: 1200px; margin: 0 auto; }
+    .eyebrow { font-family: var(--ff-t); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted-48); margin-bottom: 12px; }
+    .section-title { font-family: var(--ff-d); font-size: clamp(22px, 2.8vw, 32px); font-weight: 600; line-height: 1.1; letter-spacing: -0.2px; color: var(--ink); margin-bottom: 10px; }
+    .section-body { font-family: var(--ff-t); font-size: 15px; line-height: 1.6; color: var(--ink-muted-48); max-width: 640px; }
+
+    .flourish-container { width: 100%; overflow: hidden; position: relative; background: var(--canvas); }
+    .flourish-scaler { transform-origin: top left; }
+    .flourish-scaler iframe { display: block; border: none; }
+
+    .viz-placeholder-wrap { padding: 56px 24px; background: var(--canvas); }
+    .viz-placeholder-wrap-inner { max-width: 1200px; margin: 0 auto; }
+    .viz-placeholder { border: 1.5px dashed var(--hairline); border-radius: var(--r-lg); padding: 56px 32px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .viz-placeholder svg { width: 36px; height: 36px; stroke: #ccc; }
+    .viz-placeholder p { font-family: var(--ff-t); font-size: 14px; color: var(--ink-muted-48); }
+
+    footer { background: var(--canvas-parchment); border-top: 1px solid var(--hairline); padding: 28px 24px; }
+    .foot-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    footer p { font-family: var(--ff-t); font-size: 11px; color: var(--ink-muted-48); }
+    .foot-nav { display: flex; gap: 20px; }
+    .foot-nav a { font-family: var(--ff-t); font-size: 12px; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 5px; }
+    .foot-nav a img { width: 16px; border-radius: 2px; display: block; }
+    .foot-nav a:hover { text-decoration: underline; }
+
+    /* ── HERO SCROLL EFFECTS ── */
+    .breadcrumb     { animation: heroFadeUp .55s .05s both; }
+    #hero h1        { animation: heroFadeUp .65s .15s both; }
+    #hero .hero-sub { animation: heroFadeUp .65s .28s both; }
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-flag-wrap { will-change: transform; }
+    .stat { opacity: 0; transform: translateY(18px); transition: opacity .5s ease, transform .5s ease; }
+    .stat.in-view   { opacity: 1; transform: translateY(0); }
+    .stat:nth-child(2) { transition-delay: .12s; }
+    .stat:nth-child(3) { transition-delay: .24s; }
+    .stats-strip { position: relative; }
+    .stats-strip::before {
+      content: ''; position: absolute; top: -1px; left: 0;
+      height: 2px; width: 0; background: var(--accent);
+      transition: width .85s cubic-bezier(.25,.46,.45,.94);
+    }
+    .stats-strip.in-view::before { width: 100%; }
+
+    .viz-two-col { display: grid; grid-template-columns: 1fr 280px; gap: 0; align-items: start; }
+    .viz-sidebar { padding: 32px 32px 32px 28px; border-left: 1px solid var(--hairline); background: var(--canvas-parchment); height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 20px; }
+    .sidebar-label { font-family: var(--ff-t); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted-48); margin-bottom: 16px; }
+    .sidebar-country-name { font-family: var(--ff-d); font-size: 28px; font-weight: 700; line-height: 1.1; color: var(--ink); margin-bottom: 6px; }
+    .sidebar-flag { width: 40px; height: auto; border-radius: 3px; box-shadow: 0 1px 6px rgba(0,0,0,0.15); margin-bottom: 12px; display: block; }
+    .sidebar-num { font-family: var(--ff-d); font-size: 42px; font-weight: 700; line-height: 1; color: var(--accent); margin-bottom: 4px; }
+    .sidebar-num-label { font-family: var(--ff-t); font-size: 11px; color: var(--ink-muted-48); margin-bottom: 20px; }
+    .sidebar-note { font-family: var(--ff-t); font-size: 13px; line-height: 1.55; color: var(--ink-muted-48); border-top: 1px solid var(--hairline); padding-top: 16px; }
+    @media (max-width: 900px) { .viz-two-col { grid-template-columns: 1fr; } .viz-sidebar { border-left: none; border-top: 1px solid var(--hairline); height: auto; } }
+
+    @media (max-width: 640px) { .hero-inner { flex-direction: column-reverse; align-items: flex-start; } .hero-flag-wrap { width: 80px; } }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-back">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        Inicio
+      </a>
+      <span class="nav-title">Inserción en el primer mundo</span>
+      <span class="nav-current">Francia</span>
+    </div>
+  </nav>
+
+  <div class="country-switcher">
+    <div class="switcher-inner">
+      <a href="alemania.html" class="sw-item">
+        <img src="https://flagcdn.com/w40/de.png" alt="DE" /> Alemania
+      </a>
+      <a href="francia.html" class="sw-item active">
+        <img src="https://flagcdn.com/w40/fr.png" alt="FR" /> Francia
+      </a>
+      <a href="reino-unido.html" class="sw-item">
+        <img src="https://flagcdn.com/w40/gb.png" alt="GB" /> Reino Unido
+      </a>
+    </div>
+  </div>
+
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="breadcrumb">
+          <a href="index.html">Inicio</a><span>/</span><span>Francia</span>
+        </div>
+        <h1>Francia</h1>
+        <p class="hero-sub">Una larga tradición republicana de asilo que choca con tensiones políticas internas crecientes.</p>
+        <div class="stats-strip">
+          <div class="stat"><span class="stat-num">525 K</span><span class="stat-label">solicitudes acumuladas · 2008–2024</span></div>
+          <div class="stat"><span class="stat-num">78 K</span><span class="stat-label">pico anual · 2024</span></div>
+          <div class="stat"><span class="stat-num">5</span><span class="stat-label">países de origen principales</span></div>
+        </div>
+      </div>
+      <div class="hero-flag-wrap">
+        <img src="https://flagcdn.com/w320/fr.png" alt="Bandera de Francia" />
+      </div>
+    </div>
+  </section>
+
+  <!-- VIZ 01 -->
+  <div class="viz-section">
+    <div class="viz-text">
+      <p class="eyebrow">Visualización 01</p>
+      <h2 class="section-title">Flujos migratorios: asilo legal e inmigración irregular</h2>
+      <p class="section-body">Francia mostró un crecimiento gradual y sostenido desde 2008. El gráfico combina solicitudes de asilo formales con estimaciones de inmigración irregular, mostrando la evolución anual y la composición por país de origen. Afganistán, Guinea y la R.D. Congo encabezan los flujos.</p>
+    </div>
+    <div class="flourish-container" id="fc-1">
+      <div class="flourish-scaler" id="fs-1">
+        <iframe
+          src="https://flo.uri.sh/story/3695370/embed"
+          title="Interactive or visual content"
+          class="flourish-embed-iframe"
+          frameborder="0"
+          scrolling="no"
+          sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIZ 02 -->
+  <div class="viz-section">
+    <div class="viz-text">
+      <p class="eyebrow">Visualización 02</p>
+      <h2 class="section-title">Solicitudes de asilo registradas</h2>
+      <p class="section-body">Evolución de las solicitudes de asilo legales en Francia, sin estimación de flujos irregulares.</p>
+    </div>
+    <div class="viz-two-col">
+      <div class="flourish-container" id="fc-2">
+        <div class="flourish-scaler" id="fs-2">
+          <iframe
+            src="https://flo.uri.sh/visualisation/29209292/embed"
+            title="Interactive or visual content"
+            class="flourish-embed-iframe"
+            frameborder="0"
+            scrolling="no"
+            sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+      <div class="viz-sidebar">
+        <div>
+          <p class="sidebar-label">Principal origen · pico histórico</p>
+          <img class="sidebar-flag" src="https://flagcdn.com/w80/af.png" alt="Afganistán" />
+          <p class="sidebar-country-name">Afganistán</p>
+          <p class="sidebar-num">22 K</p>
+          <p class="sidebar-num-label">solicitudes en 2023 · año récord</p>
+          <p class="sidebar-note">Afganistán se convirtió en el principal país de origen de solicitantes de asilo en Francia, impulsado por la caída de Kabul en 2021 y el retorno del régimen talibán.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="foot-inner">
+      <p>© 2026 Vilaseca · Botto · Ferrario · UTDT · Fuente: Eurostat, UNHCR</p>
+      <nav class="foot-nav">
+        <a href="alemania.html"><img src="https://flagcdn.com/w40/de.png" alt="DE" /> Alemania</a>
+        <a href="reino-unido.html"><img src="https://flagcdn.com/w40/gb.png" alt="GB" /> Reino Unido</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    var NATIVE_W = 1400;
+    var NATIVE_H = 800;
+
+    function scaleEmbed(containerId, scalerId) {
+      var container = document.getElementById(containerId);
+      var scaler    = document.getElementById(scalerId);
+      if (!container || !scaler) return;
+      var containerW = container.offsetWidth;
+      var maxH       = window.innerHeight - 272;
+      var scaleByW   = containerW / NATIVE_W;
+      var scaleByH   = maxH / NATIVE_H;
+      var scale      = Math.min(scaleByW, scaleByH);
+      var iframe = scaler.querySelector('iframe');
+      if (iframe) { iframe.style.width = NATIVE_W + 'px'; iframe.style.height = NATIVE_H + 'px'; }
+      scaler.style.width     = NATIVE_W + 'px';
+      scaler.style.height    = NATIVE_H + 'px';
+      scaler.style.transform = 'scale(' + scale + ')';
+      container.style.height = (NATIVE_H * scale) + 'px';
+    }
+
+    function scaleAll() {
+      scaleEmbed('fc-1', 'fs-1');
+      scaleEmbed('fc-2', 'fs-2');
+    }
+    scaleAll();
+    window.addEventListener('resize', scaleAll);
+
+    var flagImg = document.querySelector('.hero-flag-wrap');
+    window.addEventListener('scroll', function() {
+      if (!flagImg) return;
+      flagImg.style.transform = 'translateY(' + (window.scrollY * 0.12) + 'px)';
+    }, { passive: true });
+
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.25 });
+    document.querySelectorAll('.stat').forEach(function(el) { io.observe(el); });
+
+    var stripIO = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('in-view'); stripIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    var strip = document.querySelector('.stats-strip');
+    if (strip) stripIO.observe(strip);
+  </script>
+
+</body>
+</html>

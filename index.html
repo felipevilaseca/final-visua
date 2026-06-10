@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inserción en el primer mundo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+  <style>
+    :root {
+      --primary:          #0066cc;
+      --primary-focus:    #0071e3;
+      --ink:              #1d1d1f;
+      --ink-muted-48:     #7a7a7a;
+      --hairline:         #e0e0e0;
+      --canvas:           #ffffff;
+      --canvas-parchment: #f5f5f7;
+      --surface-tile-1:   #272729;
+      --on-dark:          #ffffff;
+      --r-lg: 18px;
+      --ff-d: "SF Pro Display", Inter, system-ui, -apple-system, sans-serif;
+      --ff-t: "SF Pro Text",    Inter, system-ui, -apple-system, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--canvas);
+      color: var(--ink);
+      font-family: var(--ff-t);
+      font-size: 17px;
+      line-height: 1.47;
+      letter-spacing: -0.374px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100svh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 80px 24px 80px;
+      background: var(--canvas);
+      position: relative;
+    }
+
+    #hero h1 {
+      font-family: var(--ff-d);
+      font-size: clamp(40px, 7vw, 76px);
+      font-weight: 600; line-height: 1.04; letter-spacing: -0.5px;
+      color: var(--ink); margin-bottom: 24px;
+      max-width: 880px;
+    }
+    #hero .subtitle {
+      font-family: var(--ff-d);
+      font-size: clamp(17px, 2.4vw, 24px);
+      font-weight: 400; line-height: 1.3; letter-spacing: 0;
+      color: var(--ink-muted-48); margin-bottom: 36px;
+      max-width: 540px;
+    }
+
+    /* Thin rule before byline */
+    .hero-rule {
+      width: 40px; height: 1px;
+      background: var(--hairline);
+      margin: 0 auto 20px;
+    }
+
+    #hero .byline {
+      font-family: var(--ff-t); font-size: 12px; font-weight: 400;
+      letter-spacing: 0; color: var(--ink-muted-48);
+    }
+    #hero .byline span { color: var(--hairline); margin: 0 8px; }
+
+    /* Country flag pills below byline */
+    .hero-flags {
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; margin-top: 36px;
+    }
+    .hero-flag-pill {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--canvas-parchment);
+      border: 1px solid var(--hairline);
+      border-radius: 9999px;
+      padding: 6px 14px 6px 8px;
+      text-decoration: none;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .hero-flag-pill:hover { background: #ececee; transform: translateY(-1px); }
+    .hero-flag-pill img { width: 22px; height: auto; border-radius: 3px; }
+    .hero-flag-pill span {
+      font-family: var(--ff-t); font-size: 13px; font-weight: 400;
+      color: var(--ink); letter-spacing: -0.12px;
+    }
+
+    /* Scroll cue */
+    .scroll-cue {
+      position: absolute; bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center;
+      gap: 6px; cursor: pointer;
+      font-family: var(--ff-t); font-size: 11px;
+      letter-spacing: 0; color: var(--ink-muted-48);
+      text-decoration: none;
+      animation: bounce 2.6s ease-in-out infinite;
+    }
+    .scroll-cue svg { width: 18px; height: 18px; }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.6; }
+      50%       { transform: translateX(-50%) translateY(7px); opacity: 1; }
+    }
+
+    /* ── CONTEXT SECTION ── */
+    #contexto {
+      background: var(--canvas-parchment);
+      padding: 88px 24px 80px;
+    }
+    .section-inner { max-width: 960px; margin: 0 auto; }
+
+    .eyebrow {
+      font-family: var(--ff-t); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--ink-muted-48); margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--ff-d);
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 600; line-height: 1.1; letter-spacing: -0.2px;
+      color: var(--ink); margin-bottom: 14px;
+    }
+    .section-body {
+      font-family: var(--ff-t); font-size: 15px; font-weight: 400;
+      line-height: 1.6; letter-spacing: -0.2px;
+      color: var(--ink-muted-48); max-width: 580px;
+      margin-bottom: 44px;
+    }
+
+    /* Chart container */
+    #line-chart {
+      width: 100%;
+      background: var(--canvas);
+      border-radius: var(--r-lg);
+      padding: 28px 28px 20px;
+    }
+    #line-chart svg { display: block; width: 100%; overflow: visible; }
+
+    /* Legend */
+    .chart-footer {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+      margin-top: 16px;
+    }
+    .chart-legend { display: flex; gap: 20px; flex-wrap: wrap; }
+    .legend-item {
+      display: flex; align-items: center; gap: 7px;
+      font-family: var(--ff-t); font-size: 12px;
+      color: var(--ink-muted-48);
+    }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .chart-source {
+      font-family: var(--ff-t); font-size: 11px;
+      color: #aaa; letter-spacing: 0;
+    }
+
+    /* Tooltip */
+    #tooltip {
+      position: fixed;
+      background: var(--surface-tile-1);
+      color: var(--on-dark);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-family: var(--ff-t); font-size: 12px;
+      pointer-events: none; display: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.22);
+      z-index: 999; min-width: 160px;
+    }
+    #tooltip .tt-year {
+      font-family: var(--ff-d); font-weight: 600;
+      font-size: 14px; margin-bottom: 10px;
+    }
+    #tooltip .tt-row {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      gap: 16px; margin-bottom: 5px;
+    }
+    #tooltip .tt-left { display: flex; align-items: center; gap: 7px; }
+    #tooltip .tt-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    #tooltip .tt-val { font-weight: 600; white-space: nowrap; }
+
+    /* ── PAÍSES ── */
+    #paises {
+      background: var(--canvas);
+      padding: 88px 24px 96px;
+    }
+
+    .country-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 48px;
+    }
+
+    .country-card {
+      display: flex; flex-direction: column;
+      text-decoration: none;
+      background: var(--canvas-parchment);
+      border-radius: var(--r-lg);
+      border: 1px solid var(--hairline);
+      overflow: hidden;
+      transition: transform 0.28s cubic-bezier(.25,.46,.45,.94),
+                  box-shadow 0.28s cubic-bezier(.25,.46,.45,.94),
+                  border-color 0.28s;
+      position: relative;
+      --card-accent: #999;
+    }
+
+    /* Tinte de color del país al hover */
+    .country-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--card-accent);
+      opacity: 0;
+      transition: opacity 0.28s;
+      pointer-events: none;
+      border-radius: inherit;
+    }
+
+    .country-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--card-accent);
+      box-shadow:
+        0 16px 48px rgba(0,0,0,0.10),
+        0 0 0 1px var(--card-accent),
+        0 6px 24px color-mix(in srgb, var(--card-accent) 30%, transparent);
+    }
+    .country-card:hover::after { opacity: 0.055; }
+    .country-card:active { transform: translateY(-2px) scale(0.99); }
+
+    /* Colored accent bar top */
+    .cc-accent {
+      height: 3px; width: 100%; flex-shrink: 0;
+      transition: height 0.28s;
+    }
+    .country-card:hover .cc-accent { height: 6px; }
+
+    .cc-body { padding: 28px 28px 24px; flex: 1; display: flex; flex-direction: column; }
+
+    /* Flag + num row */
+    .cc-top {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .cc-flag img {
+      width: 48px; height: auto;
+      border-radius: 4px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.14);
+      display: block;
+      transition: transform 0.28s cubic-bezier(.25,.46,.45,.94),
+                  box-shadow 0.28s;
+    }
+    .country-card:hover .cc-flag img {
+      transform: scale(1.10);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+    }
+    .cc-num {
+      font-family: var(--ff-t); font-size: 11px;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--ink-muted-48);
+    }
+
+    .cc-name {
+      font-family: var(--ff-d); font-size: 28px; font-weight: 600;
+      line-height: 1.05; letter-spacing: -0.28px; color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .cc-desc {
+      font-family: var(--ff-t); font-size: 13px; font-weight: 400;
+      line-height: 1.55; letter-spacing: -0.1px;
+      color: var(--ink-muted-48); margin-bottom: 20px; flex: 1;
+    }
+
+    /* Mini sparkline */
+    .cc-spark { margin-bottom: 20px; }
+    .cc-spark svg { display: block; overflow: visible; }
+
+    /* Stat + CTA row */
+    .cc-bottom {
+      display: flex; align-items: flex-end;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--hairline);
+    }
+    .cc-stat-num {
+      font-family: var(--ff-d); font-size: 24px; font-weight: 600;
+      line-height: 1; letter-spacing: -0.2px;
+    }
+    .cc-stat-label {
+      font-family: var(--ff-t); font-size: 11px;
+      color: var(--ink-muted-48); margin-top: 3px;
+    }
+    .cc-cta {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: var(--ff-t); font-size: 13px;
+      color: var(--primary); flex-shrink: 0;
+    }
+    .cc-cta svg { width: 13px; height: 13px; transition: transform 0.2s; }
+    .country-card:hover .cc-cta svg { transform: translateX(3px); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 834px) {
+      .country-grid { grid-template-columns: 1fr; }
+      .hero-flags { flex-wrap: wrap; }
+    }
+    @media (max-width: 640px) {
+      #hero h1 { font-size: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <h1>Inserción en el primer mundo</h1>
+    <p class="subtitle">Alemania, Francia y Reino Unido concentran millones de inmigrantes. Estas son sus historias.</p>
+    <div class="hero-rule"></div>
+    <p class="byline">
+      Por Felipe Vilaseca, Francisco Botto y Manuel Ferrario
+      <span>·</span>
+      Visualización de Datos · UTDT
+    </p>
+    <a href="#contexto" class="scroll-cue" aria-label="Continuar">
+      Desplazá para continuar
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M5 7l5 6 5-6"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- ── CONTEXTO ── -->
+  <section id="contexto">
+    <div class="section-inner">
+      <p class="eyebrow">Contexto general</p>
+      <h2 class="section-title">Solicitudes de asilo anuales (2008–2024)</h2>
+      <p class="section-body">
+        Dieciséis años de datos muestran el impacto desigual de las grandes crisis migratorias —Siria en 2015, Afganistán en 2021— sobre los tres principales receptores de Europa occidental.
+      </p>
+      <div id="line-chart"></div>
+      <div class="chart-footer">
+        <div class="chart-legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#4a6fa5"></div>Alemania
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#7a9e7e"></div>Francia
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#c47b4a"></div>Reino Unido
+          </div>
+        </div>
+        <span class="chart-source">Fuente: Eurostat</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PAÍSES ── -->
+  <section id="paises">
+    <div class="section-inner">
+      <p class="eyebrow">Los tres países</p>
+      <h2 class="section-title">Tres respuestas, tres historias</h2>
+      <p class="section-body">
+        Seleccioná un país para explorar sus datos de solicitudes de asilo, composición por origen y estimaciones de flujos irregulares.
+      </p>
+
+      <div class="country-grid">
+
+        <!-- ALEMANIA -->
+        <a href="alemania.html" class="country-card" style="--card-accent:#e8894d">
+          <div class="cc-accent" style="background:#4a6fa5"></div>
+          <div class="cc-body">
+            <div class="cc-top">
+              <span class="cc-flag"><img src="https://flagcdn.com/w80/de.png" alt="Alemania" /></span>
+              <span class="cc-num">01 / 03</span>
+            </div>
+            <p class="cc-name">Alemania</p>
+            <p class="cc-desc">El principal receptor de asilo de Europa occidental. La política de puertas abiertas de 2015 marcó un antes y un después.</p>
+            <div class="cc-spark" id="spark-de"></div>
+            <div class="cc-bottom">
+              <div>
+                <div class="cc-stat-num" style="color:#4a6fa5">2,4 M</div>
+                <div class="cc-stat-label">solicitudes acumuladas · 2008–2024</div>
+              </div>
+              <span class="cc-cta">Explorar
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 8h10M9 4l4 4-4 4"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- FRANCIA -->
+        <a href="francia.html" class="country-card" style="--card-accent:#4a82c4">
+          <div class="cc-accent" style="background:#7a9e7e"></div>
+          <div class="cc-body">
+            <div class="cc-top">
+              <span class="cc-flag"><img src="https://flagcdn.com/w80/fr.png" alt="Francia" /></span>
+              <span class="cc-num">02 / 03</span>
+            </div>
+            <p class="cc-name">Francia</p>
+            <p class="cc-desc">Una larga tradición republicana de asilo que choca con tensiones internas crecientes y un debate político cada vez más polarizado.</p>
+            <div class="cc-spark" id="spark-fr"></div>
+            <div class="cc-bottom">
+              <div>
+                <div class="cc-stat-num" style="color:#7a9e7e">525 K</div>
+                <div class="cc-stat-label">solicitudes acumuladas · 2008–2024</div>
+              </div>
+              <span class="cc-cta">Explorar
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 8h10M9 4l4 4-4 4"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- REINO UNIDO -->
+        <a href="reino-unido.html" class="country-card" style="--card-accent:#c45a5a">
+          <div class="cc-accent" style="background:#c47b4a"></div>
+          <div class="cc-body">
+            <div class="cc-top">
+              <span class="cc-flag"><img src="https://flagcdn.com/w80/gb.png" alt="Reino Unido" /></span>
+              <span class="cc-num">03 / 03</span>
+            </div>
+            <p class="cc-name">Reino Unido</p>
+            <p class="cc-desc">El Brexit redefinió las reglas. La ruta del Canal de la Mancha y el Plan Rwanda colocaron el asilo en el centro del debate político.</p>
+            <div class="cc-spark" id="spark-uk"></div>
+            <div class="cc-bottom">
+              <div>
+                <div class="cc-stat-num" style="color:#c47b4a">323 K</div>
+                <div class="cc-stat-label">solicitudes acumuladas · 2008–2024</div>
+              </div>
+              <span class="cc-cta">Explorar
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 8h10M9 4l4 4-4 4"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <div id="tooltip"></div>
+
+  <script>
+    const data = [
+      {year:2008, de:21720,  fr:17940, uk:30210},
+      {year:2009, de:24680,  fr:18740, uk:24970},
+      {year:2010, de:29775,  fr:19900, uk:20835},
+      {year:2011, de:37685,  fr:23220, uk:18930},
+      {year:2012, de:43225,  fr:27630, uk:18800},
+      {year:2013, de:48770,  fr:30455, uk:20230},
+      {year:2014, de:90470,  fr:36910, uk:24800},
+      {year:2015, de:269335, fr:36565, uk:30200},
+      {year:2016, de:587685, fr:40140, uk:33330},
+      {year:2017, de:146050, fr:49930, uk:35540},
+      {year:2018, de:120600, fr:57700, uk:40140},
+      {year:2019, de:110835, fr:66985, uk:46240},
+      {year:2020, de:94480,  fr:57335, uk:18968},
+      {year:2021, de:131815, fr:55185, uk:35545},
+      {year:2022, de:162655, fr:60525, uk:54215},
+      {year:2023, de:205755, fr:74170, uk:41014},
+      {year:2024, de:148385, fr:78100, uk:47730},
+    ];
+
+    const series = [
+      { key: 'de', label: 'Alemania',    color: '#4a6fa5' },
+      { key: 'fr', label: 'Francia',     color: '#7a9e7e' },
+      { key: 'uk', label: 'Reino Unido', color: '#c47b4a' },
+    ];
+
+    const fmt  = d3.format(',');
+    const fmtK = v => v >= 1000 ? d3.format('.0f')(v/1000)+'K' : v;
+
+    /* ── Main line chart ── */
+    function drawChart() {
+      const container = document.getElementById('line-chart');
+      const W = container.clientWidth || 900;
+      const H = Math.round(Math.min(380, Math.max(280, W * 0.42)));
+      const margin = { top: 20, right: 24, bottom: 36, left: 62 };
+      const iW = W - margin.left - margin.right;
+      const iH = H - margin.top - margin.bottom;
+
+      container.innerHTML = '';
+
+      const svg = d3.select('#line-chart')
+        .append('svg')
+        .attr('viewBox', `0 0 ${W} ${H}`)
+        .attr('width', W).attr('height', H);
+
+      const g = svg.append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
+
+      const xScale = d3.scaleLinear().domain([2008, 2024]).range([0, iW]);
+      const yMax   = d3.max(data, d => Math.max(d.de, d.fr, d.uk));
+      const yScale = d3.scaleLinear().domain([0, yMax * 1.18]).range([iH, 0]);
+
+      // Grid
+      g.append('g')
+        .call(d3.axisLeft(yScale).ticks(5).tickSize(-iW).tickFormat(''))
+        .call(ax => ax.select('.domain').remove())
+        .call(ax => ax.selectAll('line').attr('stroke','#ebebeb').attr('stroke-dasharray','3,3'));
+
+      // X axis
+      g.append('g').attr('transform', `translate(0,${iH})`)
+        .call(d3.axisBottom(xScale).ticks(8).tickFormat(d3.format('d')))
+        .call(ax => ax.select('.domain').attr('stroke','#e0e0e0'))
+        .call(ax => ax.selectAll('line').attr('stroke','#e0e0e0'))
+        .call(ax => ax.selectAll('text').attr('fill','#aaa').style('font-size','11px'));
+
+      // Y axis
+      g.append('g')
+        .call(d3.axisLeft(yScale).ticks(5).tickFormat(fmtK))
+        .call(ax => ax.select('.domain').remove())
+        .call(ax => ax.selectAll('line').remove())
+        .call(ax => ax.selectAll('text').attr('fill','#aaa').style('font-size','11px'));
+
+      // Y label
+      g.append('text')
+        .attr('transform','rotate(-90)')
+        .attr('x', -iH/2).attr('y', -50)
+        .attr('text-anchor','middle')
+        .attr('fill','#bbb')
+        .style('font-size','10px')
+        .text('solicitudes anuales');
+
+      // Lines + end labels
+      const line = d3.line()
+        .x(d => xScale(d.year))
+        .y(d => yScale(d.value))
+        .curve(d3.curveMonotoneX);
+
+      series.forEach(s => {
+        const pts = data.map(d => ({ year: d.year, value: d[s.key] }));
+        g.append('path').datum(pts)
+          .attr('fill','none').attr('stroke', s.color)
+          .attr('stroke-width', 2).attr('d', line);
+
+        // End-of-line label
+        const last = pts[pts.length - 1];
+        g.append('text')
+          .attr('x', xScale(last.year) + 6)
+          .attr('y', yScale(last.value) + 4)
+          .attr('fill', s.color)
+          .style('font-size','11px')
+          .style('font-weight','600')
+          .text(s.label === 'Alemania' ? 'DE' : s.label === 'Francia' ? 'FR' : 'UK');
+      });
+
+      // Peak annotation — Alemania 2016
+      const peak = data.find(d => d.year === 2016);
+      const px = xScale(2016), py = yScale(peak.de);
+      g.append('circle').attr('cx',px).attr('cy',py).attr('r',4)
+        .attr('fill','#4a6fa5').attr('stroke','#fff').attr('stroke-width',1.5);
+      g.append('text')
+        .attr('x', px - 4).attr('y', py - 10)
+        .attr('text-anchor','end').attr('fill','#4a6fa5')
+        .style('font-size','11px').style('font-weight','600')
+        .text('587K');
+
+      // Crisis vertical line
+      const x15 = xScale(2015);
+      g.append('line')
+        .attr('x1',x15).attr('x2',x15).attr('y1',0).attr('y2',iH)
+        .attr('stroke','#ccc').attr('stroke-dasharray','4,3').attr('stroke-width',1);
+      g.append('text')
+        .attr('x', x15 + 5).attr('y', 12)
+        .attr('fill','#bbb').style('font-size','10px')
+        .text('Crisis Siria');
+
+      // Hover
+      const tooltip = document.getElementById('tooltip');
+      const vline = g.append('line')
+        .attr('y1',0).attr('y2',iH)
+        .attr('stroke','#ddd').attr('stroke-width',1)
+        .style('display','none');
+
+      g.append('rect')
+        .attr('width',iW).attr('height',iH)
+        .attr('fill','transparent').style('cursor','crosshair')
+        .on('mousemove', function(event) {
+          const [mx] = d3.pointer(event);
+          const year = Math.round(xScale.invert(mx));
+          const clamped = Math.max(2008, Math.min(2024, year));
+          const d = data.find(r => r.year === clamped);
+          if (!d) return;
+          vline.style('display',null).attr('x1',xScale(d.year)).attr('x2',xScale(d.year));
+          tooltip.style.display = 'block';
+          tooltip.style.left = (event.clientX + 16) + 'px';
+          tooltip.style.top  = (event.clientY - 16) + 'px';
+          tooltip.innerHTML = `<div class="tt-year">${d.year}</div>`
+            + series.map(s => `
+              <div class="tt-row">
+                <div class="tt-left">
+                  <div class="tt-dot" style="background:${s.color}"></div>
+                  <span>${s.label}</span>
+                </div>
+                <span class="tt-val">${fmt(d[s.key])}</span>
+              </div>`).join('');
+        })
+        .on('mouseleave', () => {
+          tooltip.style.display = 'none';
+          vline.style('display','none');
+        });
+    }
+
+    /* ── Sparklines ── */
+    function drawSpark(containerId, key, color) {
+      const el = document.getElementById(containerId);
+      if (!el) return;
+      const W = el.clientWidth || 220;
+      const H = 42;
+      const pad = { t: 4, r: 4, b: 4, l: 4 };
+      const iW = W - pad.l - pad.r;
+      const iH = H - pad.t - pad.b;
+
+      const vals = data.map(d => d[key]);
+      const xS = d3.scaleLinear().domain([0, vals.length - 1]).range([0, iW]);
+      const yS = d3.scaleLinear().domain([0, d3.max(vals)]).range([iH, 0]);
+
+      const svg = d3.select(`#${containerId}`)
+        .append('svg').attr('width', W).attr('height', H);
+      const g = svg.append('g').attr('transform', `translate(${pad.l},${pad.t})`);
+
+      // Area fill
+      const area = d3.area()
+        .x((d,i) => xS(i)).y0(iH).y1(d => yS(d))
+        .curve(d3.curveMonotoneX);
+      g.append('path').datum(vals)
+        .attr('fill', color).attr('opacity', 0.12).attr('d', area);
+
+      // Line
+      const line = d3.line()
+        .x((d,i) => xS(i)).y(d => yS(d))
+        .curve(d3.curveMonotoneX);
+      g.append('path').datum(vals)
+        .attr('fill','none').attr('stroke', color)
+        .attr('stroke-width', 1.5).attr('d', line);
+    }
+
+    drawChart();
+    drawSpark('spark-de', 'de', '#4a6fa5');
+    drawSpark('spark-fr', 'fr', '#7a9e7e');
+    drawSpark('spark-uk', 'uk', '#c47b4a');
+    window.addEventListener('resize', () => {
+      drawChart();
+      document.getElementById('spark-de').innerHTML = '';
+      document.getElementById('spark-fr').innerHTML = '';
+      document.getElementById('spark-uk').innerHTML = '';
+      drawSpark('spark-de', 'de', '#4a6fa5');
+      drawSpark('spark-fr', 'fr', '#7a9e7e');
+      drawSpark('spark-uk', 'uk', '#c47b4a');
+    });
+  </script>
+</body>
+</html>
