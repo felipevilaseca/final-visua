@@ -305,6 +305,123 @@
   </div>
 </div>
 
+<!-- CAP 4: BRECHA DE DESEMPLEO -->
+<div class="chapter"><div class="chapter-inner">
+  <p class="chapter-num">Capítulo 4 · Integración</p>
+  <h2 class="chapter-title">La brecha que no cierra</h2>
+  <p class="chapter-body">Si la República prometió integración universal, el mercado laboral lleva 30 años desmintiendo esa promesa. Los inmigrantes siempre desempleados al doble que los nativos. Sin excepción. En crisis y en bonanza.</p>
+</div></div>
+
+<div class="viz-section" style="border-top:none">
+  <div class="viz-text">
+    <p class="eyebrow">Visualización 03 · Mercado laboral</p>
+    <h2 class="section-title">Desempleo: inmigrantes vs. nativos, 1995–2025</h2>
+    <p class="section-body">Scrolleá para recorrer los momentos clave. La zona gris es la brecha — cuánto más desempleados están los inmigrantes.</p>
+  </div>
+</div>
+
+<!-- SCROLL CHART LAYOUT -->
+<div class="unemp-scroll-layout">
+  <!-- GRÁFICO STICKY -->
+  <div class="unemp-sticky">
+    <div class="unemp-chart-wrap">
+      <div class="flourish-embed flourish-chart" data-src="visualisation/29227599" style="width:100%;height:100%;min-height:340px;position:relative;z-index:0">
+        <script src="https://public.flourish.studio/resources/embed.js"></script>
+        <noscript><img src="https://public.flourish.studio/visualisation/29227599/thumbnail" width="100%" alt="chart visualization"></noscript>
+      </div>
+      <div class="unemp-overlay" id="unemp-overlay">
+        <div class="unemp-annotation" id="unemp-annotation">
+          <div class="ua-line"></div>
+          <div class="ua-bubble" id="ua-bubble">
+            <div class="ua-year" id="ua-year">1997</div>
+            <div class="ua-text" id="ua-text">Recesión heredada</div>
+            <div class="ua-stats" id="ua-stats">Inmigrantes 18% · Nativos 11%</div>
+          </div>
+        </div>
+        <div class="unemp-region" id="unemp-region"></div>
+      </div>
+    </div>
+    <!-- Leyenda -->
+    <div class="unemp-legend">
+      <div class="ul-item"><div class="ul-dot" style="background:var(--accent)"></div>Inmigrantes</div>
+      <div class="ul-item"><div class="ul-dot" style="background:#aaa"></div>Nativos</div>
+      <div class="ul-item"><div class="ul-sq"></div>Brecha</div>
+    </div>
+  </div>
+
+  <!-- PANELES NARRATIVOS -->
+  <div class="unemp-panels" id="unemp-panels">
+
+    <div class="upanel active" data-step="0">
+      <div class="upanel-period">1995–2000</div>
+      <div class="upanel-title">La brecha heredada</div>
+      <div class="upanel-gap">Brecha: ~8 pp</div>
+      <p class="upanel-body">En 1995, los inmigrantes tienen una tasa de desempleo del 19% — casi el doble que el 11% de los nativos. Francia sale de una recesión profunda. Los inmigrantes, concentrados en industria y construcción, son los primeros en perder el trabajo y los últimos en recuperarlo.</p>
+    </div>
+
+    <div class="upanel" data-step="1">
+      <div class="upanel-period">2000–2008</div>
+      <div class="upanel-title">El boom no cerró la brecha</div>
+      <div class="upanel-gap">Brecha: ~7 pp</div>
+      <p class="upanel-body">La economía crece, el desempleo cae para todos — pero la brecha se mantiene estable. En el mejor momento del ciclo, los nativos llegan al 7%, los inmigrantes al 14%. El pleno empleo nunca fue universal en Francia.</p>
+    </div>
+
+    <div class="upanel" data-step="2">
+      <div class="upanel-period">2008–2013</div>
+      <div class="upanel-title">La crisis golpea desproporcionadamente</div>
+      <div class="upanel-gap">Brecha: ~9 pp</div>
+      <p class="upanel-body">La crisis financiera de 2008 amplía la brecha. Los inmigrantes, sobrerrepresentados en sectores cíclicos, pierden empleos más rápido. En 2013, la tasa inmigrante supera el 19% — los niveles de 1995 — mientras los nativos se mantienen en 10%.</p>
+    </div>
+
+    <div class="upanel" data-step="3">
+      <div class="upanel-period">2014–2019</div>
+      <div class="upanel-title">Recuperación asimétrica</div>
+      <div class="upanel-gap">Brecha: ~8 pp</div>
+      <p class="upanel-body">La recuperación llega, pero como siempre: primero para los nativos. La brecha se mantiene persistente en torno a 8 puntos porcentuales. Es la normalidad francesa: la integración laboral de los inmigrantes funciona con un retraso estructural de décadas.</p>
+    </div>
+
+    <div class="upanel" data-step="4">
+      <div class="upanel-period">2020–2025</div>
+      <div class="upanel-title">COVID y la convergencia engañosa</div>
+      <div class="upanel-gap">Brecha: ~5 pp</div>
+      <p class="upanel-body">El COVID golpea a todos por igual — por primera vez en décadas la brecha se achica. Pero es una convergencia por abajo: todos peor, no los inmigrantes mejor. Desde 2022, ambas curvas bajan juntas. La pregunta es si esta vez la recuperación será diferente. Los datos históricos no dan esperanza.</p>
+    </div>
+
+  </div>
+</div>
+
+<style>
+.unemp-scroll-layout{display:grid;grid-template-columns:1fr 360px;align-items:start;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+.unemp-sticky{position:sticky;top:44px;height:calc(100vh - 44px);display:flex;flex-direction:column;justify-content:center;padding:24px 32px;gap:16px;background:var(--canvas)}
+.unemp-chart-wrap{position:relative;width:100%;flex:1;min-height:0}
+.unemp-chart-wrap .flourish-embed{height:100%;min-height:320px}
+/* Overlay encima del iframe — pointer-events none para no bloquear interacción */
+.unemp-overlay{position:absolute;inset:0;pointer-events:none;z-index:10}
+/* Región sombreada */
+.unemp-region{position:absolute;top:8%;bottom:10%;background:rgba(74,130,196,.13);border-left:2px dashed rgba(74,130,196,.4);border-right:2px dashed rgba(74,130,196,.4);transition:left .6s cubic-bezier(.25,.46,.45,.94),width .6s cubic-bezier(.25,.46,.45,.94)}
+/* Línea de anotación vertical */
+.unemp-annotation{position:absolute;top:8%;bottom:10%;transition:left .6s cubic-bezier(.25,.46,.45,.94)}
+.ua-line{position:absolute;top:0;bottom:0;left:0;width:2px;background:var(--accent)}
+.ua-bubble{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.85);color:#fff;border-radius:10px;padding:10px 14px;min-width:150px;max-width:190px;backdrop-filter:blur(4px)}
+.ua-year{font-family:var(--ffd);font-size:24px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:4px}
+.ua-text{font-size:11px;line-height:1.5;color:rgba(255,255,255,.7);margin-bottom:5px}
+.ua-stats{font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.02em}
+/* Leyenda */
+.unemp-legend{display:flex;gap:20px;flex-shrink:0}
+.ul-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.ul-dot{width:10px;height:10px;border-radius:50%}
+.ul-sq{width:14px;height:10px;background:rgba(74,130,196,.18);border:1px solid rgba(74,130,196,.4)}
+/* Paneles */
+.unemp-panels{border-left:1px solid var(--hairline);background:var(--parch)}
+.upanel{min-height:100vh;padding:56px 36px;display:flex;flex-direction:column;justify-content:center;border-bottom:1px solid var(--hairline);opacity:.3;transition:opacity .4s}
+.upanel.active{opacity:1}
+.upanel-period{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.upanel-title{font-family:var(--ffd);font-size:22px;font-weight:600;color:var(--ink);margin-bottom:10px;line-height:1.2}
+.upanel-gap{display:inline-block;font-size:12px;font-weight:600;color:var(--C);background:#e8f0fb;padding:5px 12px;border-radius:20px;margin-bottom:16px}
+.upanel-body{font-size:14px;line-height:1.7;color:var(--muted)}
+@media(max-width:900px){.unemp-scroll-layout{grid-template-columns:1fr}.unemp-sticky{position:relative;top:0;height:auto;min-height:380px;padding:20px}.unemp-panels{border-left:none;border-top:1px solid var(--hairline)}.upanel{min-height:60vh}}
+</style>
+
 <div class="visual-break">
   <div class="visual-break-bg" style="background:linear-gradient(135deg,#0a0020 0%,#150030 50%,#1a0040 100%)"></div>
   <div class="visual-break-overlay"></div>
@@ -352,6 +469,57 @@ DD.forEach(function(d,i){var pip=document.createElement('div');pip.className='di
 udot(0);
 var dob=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)udot(+e.target.dataset.donut);});},{rootMargin:'-35% 0px -35% 0px',threshold:0});
 document.querySelectorAll('.dpanel').forEach(function(p){dob.observe(p);});
+/* ══ UNEMPLOYMENT SCROLL ANNOTATIONS ══
+   El gráfico es el embed real de Flourish.
+   El overlay dibuja región sombreada + línea + bubble encima del iframe.
+   Posiciones en % calculadas sobre el rango de años del eje X (1995–2030).
+*/
+var UNEMP_STEPS = [
+  {range:[1995,2001], lineYear:1997, label:'Recesión heredada',        stats:'Inmigrantes ~19% · Nativos ~11%'},
+  {range:[2000,2009], lineYear:2004, label:'El boom no cerró la brecha', stats:'Inmigrantes ~14% · Nativos ~8%'},
+  {range:[2008,2014], lineYear:2011, label:'Crisis: brecha al máximo',  stats:'Inmigrantes ~19% · Nativos ~10%'},
+  {range:[2013,2020], lineYear:2016, label:'Recuperación asimétrica',   stats:'Inmigrantes ~17% · Nativos ~9%'},
+  {range:[2019,2026], lineYear:2022, label:'COVID y convergencia',       stats:'Inmigrantes ~13% · Nativos ~7%'}
+];
+// El eje X del embed Flourish va de 1995 a ~2030
+// Márgenes del área de plot dentro del iframe (calibrados visualmente)
+var UP_X0=1995, UP_X1=2030;
+var UP_PL=0.075, UP_PR=0.965; // plot left/right como fracción del ancho del overlay
+
+function yearFrac(y){ return UP_PL + (y-UP_X0)/(UP_X1-UP_X0)*(UP_PR-UP_PL); }
+
+var curUnempStep=0;
+function updateUnempStep(idx){
+  curUnempStep=idx;
+  var s=UNEMP_STEPS[idx];
+  var ov=document.getElementById('unemp-overlay');
+  if(!ov) return;
+  var W=ov.offsetWidth;
+
+  // Región sombreada
+  var rg=document.getElementById('unemp-region');
+  rg.style.left  = (yearFrac(s.range[0])*W)+'px';
+  rg.style.width = ((yearFrac(s.range[1])-yearFrac(s.range[0]))*W)+'px';
+
+  // Línea + bubble
+  var lx=yearFrac(s.lineYear)*W;
+  document.getElementById('unemp-annotation').style.left=lx+'px';
+  document.getElementById('ua-year').textContent =s.lineYear;
+  document.getElementById('ua-text').textContent =s.label;
+  document.getElementById('ua-stats').textContent=s.stats;
+  var bub=document.getElementById('ua-bubble');
+  if(lx>W*0.58){bub.style.left='auto';bub.style.right='10px';}
+  else{bub.style.left='10px';bub.style.right='auto';}
+
+  // Paneles
+  document.querySelectorAll('.upanel').forEach(function(p,i){p.classList.toggle('active',i===idx);});
+}
+
+setTimeout(function(){updateUnempStep(0);},900);
+window.addEventListener('resize',function(){updateUnempStep(curUnempStep);});
+var unempObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)updateUnempStep(+e.target.dataset.step);});},{rootMargin:'-35% 0px -35% 0px',threshold:0});
+document.querySelectorAll('.upanel').forEach(function(p){unempObs.observe(p);});
+
 var fi=document.querySelector('.hero-flag-wrap');window.addEventListener('scroll',function(){if(fi)fi.style.transform='translateY('+(window.scrollY*0.12)+'px)';},{passive:true});
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in-view');io.unobserve(e.target);}});},{threshold:0.25});document.querySelectorAll('.stat').forEach(function(el){io.observe(el);});
 var sio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in-view');sio.unobserve(e.target);}});},{threshold:0.1});var strip=document.querySelector('.stats-strip');if(strip)sio.observe(strip);
