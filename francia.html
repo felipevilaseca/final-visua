@@ -15,7 +15,7 @@
     .nav-inner{width:100%;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
     .nav-back{display:flex;align-items:center;gap:5px;font-size:12px;color:rgba(255,255,255,.65);text-decoration:none;transition:color .15s}.nav-back:hover{color:#fff}.nav-back svg{width:14px;height:14px}
     .nav-title{font-family:var(--ffd);font-size:12px;color:#fff}.nav-current{font-size:12px;color:rgba(255,255,255,.65)}
-    .country-switcher{background:var(--parch);border-bottom:1px solid var(--hairline);padding:0 24px}
+    .country-switcher{background:var(--parch);border-bottom:1px solid var(--hairline);padding:0 24px;position:sticky;top:44px;z-index:190}
     .switcher-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;height:48px}
     .sw-item{display:flex;align-items:center;gap:8px;padding:0 20px;height:100%;text-decoration:none;font-size:13px;color:var(--muted);border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap}
     .sw-item img{width:20px;height:auto;border-radius:2px}.sw-item:hover{color:var(--ink)}.sw-item.active{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
@@ -29,8 +29,8 @@
     .stats-strip{display:flex;gap:36px;flex-wrap:wrap;padding:24px 0;border-top:1px solid var(--hairline);position:relative}
     .stats-strip::before{content:'';position:absolute;top:-1px;left:0;height:2px;width:0;background:var(--accent);transition:width .85s cubic-bezier(.25,.46,.45,.94)}
     .stats-strip.in-view::before{width:100%}
-    .stat{display:flex;flex-direction:column;gap:4px;opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s}
-    .stat.in-view{opacity:1;transform:none}.stat:nth-child(2){transition-delay:.12s}.stat:nth-child(3){transition-delay:.24s}
+    .stat{display:flex;flex-direction:column;gap:4px;opacity:0;transform:translateY(18px);transition:opacity .9s,transform .9s}
+    .stat.in-view{opacity:1;transform:none}.stat:nth-child(2){transition-delay:.4s}.stat:nth-child(3){transition-delay:.8s}
     .stat-num{font-family:var(--ffd);font-size:clamp(26px,3vw,38px);font-weight:600;line-height:1;color:var(--accent)}.stat-label{font-size:11px;color:var(--muted)}
     .hero-flag-wrap{flex-shrink:0;width:clamp(100px,18vw,180px);will-change:transform}
     .hero-flag-wrap img{width:100%;height:auto;border-radius:8px;box-shadow:3px 5px 30px rgba(0,0,0,.18)}
@@ -74,20 +74,20 @@
     .spanel-reader{position:sticky;top:44px;height:calc(100vh - 44px);display:flex;flex-direction:column;justify-content:center;padding:40px 36px;background:var(--parch);z-index:2;transition:opacity 0.22s}
     .spanel{min-height:50vh;opacity:0;visibility:hidden;pointer-events:none}.spanel.active{opacity:0}
     .spanel-year{font-family:var(--ffd);font-size:52px;font-weight:700;line-height:1;color:var(--accent);margin-bottom:6px}
-    .spanel-event{font-family:var(--ffd);font-size:16px;font-weight:600;color:var(--ink);margin-bottom:14px}
-    .spanel-stat{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:16px;padding:7px 12px;background:var(--canvas);border-radius:8px;border:1px solid var(--hairline);display:inline-block}
+    .spanel-event{font-family:var(--ffd);font-size:17px;font-weight:600;color:var(--ink);margin-bottom:16px;padding-left:14px;border-left:3px solid var(--accent)}
+    .spanel-stat{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:14px;display:block;letter-spacing:.01em}
     .spanel-body{font-size:14px;line-height:1.7;color:var(--muted)}
     .donut-scroll-layout{display:grid;grid-template-columns:1fr 400px;align-items:start;border-top:1px solid var(--hairline)}
     .donut-sticky{position:sticky;top:44px;height:calc(100vh - 44px);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:32px 40px;background:var(--canvas);gap:18px}
-    .big-donut-wrap{position:relative;width:200px;height:200px;flex-shrink:0}
+    .big-donut-wrap{position:relative;width:260px;height:260px;flex-shrink:0}
     .big-donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
     .big-donut-pct{display:block;font-family:var(--ffd);font-size:38px;font-weight:700;line-height:1;color:var(--C)}
     .big-donut-sub{display:block;font-size:11px;color:var(--muted);margin-top:3px}
     .big-donut-country{font-family:var(--ffd);font-size:20px;font-weight:700;color:var(--ink);text-align:center}
     .big-donut-total{font-size:12px;color:var(--muted);text-align:center}
-    .donut-index{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:260px}
-    .di-pip{width:30px;height:30px;border-radius:50%;border:2px solid var(--hairline);overflow:hidden;transition:border-color .3s,transform .25s;cursor:pointer}
-    .di-pip img{width:100%;height:100%;object-fit:cover;display:block}.di-pip.active{border-color:var(--C);transform:scale(1.25)}
+    .donut-index{display:flex;flex-wrap:nowrap;gap:6px;justify-content:center;max-width:320px}
+    .di-pip{width:28px;height:28px;border-radius:4px;border:2px solid var(--hairline);overflow:hidden;transition:border-color .3s,transform .25s;cursor:pointer}
+    .di-pip img{width:100%;height:100%;object-fit:cover;display:block}.di-pip.active{border-color:var(--C);transform:scale(1.15)}
     .donut-legend{display:flex;gap:16px}.dl-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}.dl-sq{width:10px;height:10px;border-radius:2px}
     .donut-panels{border-left:1px solid var(--hairline);background:var(--parch);position:relative}
     .dpanel-reader{position:sticky;top:44px;height:calc(100vh - 44px);display:flex;flex-direction:column;justify-content:center;padding:40px 36px;background:var(--parch);z-index:2;transition:opacity 0.22s}
@@ -149,30 +149,6 @@
   <div class="hero-flag-wrap"><img src="https://flagcdn.com/w320/fr.png" alt="Francia"></div>
 </div></section>
 
-<!-- CAP 1 -->
-<div class="chapter"><div class="chapter-inner">
-  <p class="chapter-num">Capítulo 1 · 1960–1990</p>
-  <h2 class="chapter-title">Liberté, Égalité — ¿Fraternité?</h2>
-  <p class="chapter-body">Francia construyó su identidad republicana sobre una promesa radical: cualquiera podía ser francés si aceptaba los valores de la República. No importaba el origen, la religión, el color. La <em style="color:rgba(255,255,255,.7)">laïcité</em> era el pasaporte universal. Funcionó durante décadas. Luego llegaron las <em style="color:rgba(255,255,255,.7)">banlieues</em>.</p>
-</div></div>
-
-<div class="visual-break">
-  <div class="visual-break-bg" style="background:linear-gradient(135deg,#00204a 0%,#003580 50%,#0050a0 100%)"></div>
-  <div class="visual-break-overlay"></div>
-  <div class="visual-break-year">1962</div>
-  <div class="visual-break-content">
-    <p class="visual-break-label">Argelia · Independencia</p>
-    <p class="visual-break-text">Con la independencia argelina en 1962, más de un millón de personas —pieds-noirs y argelinos pro-Francia— cruzan el Mediterráneo. Es el primer gran shock migratorio de la República moderna.</p>
-    <p class="visual-break-caption">Archives nationales · Fond Algérie 1954–1962</p>
-  </div>
-</div>
-
-<!-- CAP 2 -->
-<div class="chapter"><div class="chapter-inner">
-  <p class="chapter-num">Capítulo 2 · 1992–2023</p>
-  <h2 class="chapter-title">El mapa de la promesa incumplida</h2>
-  <p class="chapter-body">Île-de-France siempre dominante. Las regiones del sur creciendo más rápido. El norte industrial —Hauts-de-France, Grand Est— absorbiendo flujos silenciosos. La distribución geográfica revela también una distribución de oportunidades.</p>
-</div></div>
 
 <div class="viz-section" style="border-top:none">
   <div class="viz-text">
@@ -195,34 +171,40 @@
     <div class="scroll-panels">
       <div class="spanel-reader" id="spanel-reader"></div>
       <div class="spanel active" data-frame="0">
-        <div class="spanel-year">1992</div><div class="spanel-event">Una Francia ya diversa</div>
-        <div class="spanel-stat">3,6 M · Magreb y Europa del sur</div>
-        <p class="spanel-body">Francia ya era diversa mucho antes de que el debate migratorio se volviera central. El Magreb —Argelia, Marruecos, Túnez— y el sur de Europa —Portugal, España, Italia— constituyen el grueso histórico. Île-de-France concentra casi el 40% del total.</p>
+        <div class="spanel-year">1992</div>
+        <div class="spanel-event">Francia siempre fue diversa</div>
+        <div class="spanel-stat">3,6 millones de extranjeros</div>
+        <p class="spanel-body">La mayoría venía de países cercanos: Argelia, Marruecos, Portugal, España e Italia. Casi 4 de cada 10 vivían en la región de París (Île-de-France). No era algo nuevo — Francia lleva décadas recibiendo personas de todo el mundo.</p>
       </div>
       <div class="spanel" data-frame="1">
-        <div class="spanel-year">2000</div><div class="spanel-event">El efecto naturalización</div>
-        <div class="spanel-stat">3,3 M · caída aparente</div>
-        <p class="spanel-body">La cifra baja levemente, pero no porque haya menos inmigrantes: las naturalizaciones masivas de los 90 sacan a miles del registro de "extranjeros". El stock real de personas con origen migratorio sigue creciendo. El mapa es engañoso.</p>
+        <div class="spanel-year">2000</div>
+        <div class="spanel-event">El número baja, pero los inmigrantes no</div>
+        <div class="spanel-stat">3,3 millones de extranjeros</div>
+        <p class="spanel-body">La cifra baja levemente porque muchos inmigrantes obtuvieron la ciudadanía francesa y ya no se cuentan como "extranjeros". En realidad, la cantidad de personas con raíces en otros países seguía creciendo.</p>
       </div>
       <div class="spanel" data-frame="2">
-        <div class="spanel-year">2007</div><div class="spanel-event">La ampliación europea reactiva los flujos</div>
-        <div class="spanel-stat">3,7 M · nuevos orígenes</div>
-        <p class="spanel-body">La incorporación de los países del este a la UE suma nuevos flujos — polacos, rumanos, búlgaros. Al mismo tiempo, África subsahariana gana peso como origen. La diversidad de la inmigración francesa se complejiza.</p>
+        <div class="spanel-year">2007</div>
+        <div class="spanel-event">Europa se agranda, llegan nuevos vecinos</div>
+        <div class="spanel-stat">3,7 millones de extranjeros</div>
+        <p class="spanel-body">Cuando países como Polonia y Rumania se unieron a la Unión Europea, sus ciudadanos pudieron moverse libremente. Muchos eligieron Francia. Al mismo tiempo, empezaron a llegar más personas desde África subsahariana.</p>
       </div>
       <div class="spanel" data-frame="3">
-        <div class="spanel-year">2015</div><div class="spanel-event">La crisis siria llega a Francia</div>
-        <div class="spanel-stat">4,4 M · tensión política creciente</div>
-        <p class="spanel-body">Francia recibe menos refugiados sirios que Alemania en términos absolutos, pero el debate político es igual de intenso. Los atentados de París de noviembre de 2015 mezclan en la opinión pública dos fenómenos distintos: terrorismo y migración.</p>
+        <div class="spanel-year">2015</div>
+        <div class="spanel-event">La guerra en Siria llega a Europa</div>
+        <div class="spanel-stat">4,4 millones de extranjeros</div>
+        <p class="spanel-body">Millones de sirios huían de la guerra. Francia acogió a menos refugiados que Alemania, pero el debate político fue muy intenso. Ese mismo año, los atentados en París generaron miedo y tensión en torno a la inmigración.</p>
       </div>
       <div class="spanel" data-frame="4">
-        <div class="spanel-year">2020</div><div class="spanel-event">Pandemia y crecimiento</div>
-        <div class="spanel-stat">4,9 M · el sur crece más rápido</div>
-        <p class="spanel-body">A pesar del cierre de fronteras durante el COVID-19, el stock de extranjeros sigue creciendo. PACA y Occitania muestran el mayor crecimiento relativo — el Mediterráneo como puerta de entrada. Las banlieues parisinas siguen siendo el corazón de la cuestión.</p>
+        <div class="spanel-year">2020</div>
+        <div class="spanel-event">Ni el COVID frenó el crecimiento</div>
+        <div class="spanel-stat">4,9 millones de extranjeros</div>
+        <p class="spanel-body">A pesar de que las fronteras estuvieron cerradas por la pandemia, la cantidad de extranjeros siguió subiendo. Las regiones del sur —cerca del Mediterráneo— fueron las que más crecieron en este período.</p>
       </div>
       <div class="spanel" data-frame="5">
-        <div class="spanel-year">2023</div><div class="spanel-event">Récord histórico</div>
-        <div class="spanel-stat">5,5 M · el 8% de la población</div>
-        <p class="spanel-body">Francia alcanza su máximo histórico. Île-de-France supera los 2 millones. Y el debate político alcanza también su punto más alto: Marine Le Pen llegó al 41,5% en la segunda vuelta de 2022. La promesa republicana está bajo presión.</p>
+        <div class="spanel-year">2023</div>
+        <div class="spanel-event">El número más alto de la historia</div>
+        <div class="spanel-stat">5,5 millones de extranjeros — el 8% de la población</div>
+        <p class="spanel-body">Nunca hubo tantos extranjeros viviendo en Francia. Solo en la región de París hay más de 2 millones. El tema migratorio se volvió central en la política: en 2022, la candidata de extrema derecha Marine Le Pen obtuvo el 41% de los votos.</p>
       </div>
     </div>
   </div>
@@ -234,18 +216,6 @@
   <p class="quote-attr"><strong>Constitución de la República Francesa</strong> · Artículo 1 · 1958 <span style="display:block;margin-top:6px;font-style:italic">Una promesa que convirtió la integración en política de Estado — y el fracaso en crisis constitucional</span></p>
 </div></div>
 
-<div class="counters-section"><div class="counters-inner">
-  <div class="counter-item"><div class="counter-num">525 K</div><div class="counter-label">solicitudes de asilo acumuladas<br>2008–2024</div></div>
-  <div class="counter-item"><div class="counter-num">41,5%</div><div class="counter-label">votos para Marine Le Pen<br>en segunda vuelta 2022</div></div>
-  <div class="counter-item"><div class="counter-num">+60</div><div class="counter-label">años de inmigración magrebí —<br>la integración sigue siendo la pregunta</div></div>
-</div></div>
-
-<!-- CAP 3 -->
-<div class="chapter"><div class="chapter-inner">
-  <p class="chapter-num">Capítulo 3 · Composición</p>
-  <h2 class="chapter-title">El peso del pasado colonial</h2>
-  <p class="chapter-body">Los principales orígenes de la inmigración en Francia no son aleatorios: son el mapa del antiguo Imperio. Argelia, Marruecos, Túnez, Senegal, Haití. El colonialismo creó cadenas migratorias que el poscolonialismo no rompió — las reforzó.</p>
-</div></div>
 
 <div class="viz-section" style="border-top:none">
   <div class="viz-text">
@@ -318,12 +288,6 @@
   </div>
 </div>
 
-<!-- CAP 4: BRECHA DE DESEMPLEO -->
-<div class="chapter"><div class="chapter-inner">
-  <p class="chapter-num">Capítulo 4 · Integración</p>
-  <h2 class="chapter-title">La brecha que no cierra</h2>
-  <p class="chapter-body">Si la República prometió integración universal, el mercado laboral lleva 30 años desmintiendo esa promesa. Los inmigrantes siempre desempleados al doble que los nativos. Sin excepción. En crisis y en bonanza.</p>
-</div></div>
 
 <div class="viz-section" style="border-top:none">
   <div class="viz-text">
@@ -405,7 +369,7 @@
 
 <style>
 .unemp-scroll-layout{display:grid;grid-template-columns:1fr 360px;align-items:start;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
-.unemp-sticky{position:sticky;top:44px;height:calc(100vh - 44px);display:flex;flex-direction:column;justify-content:center;padding:24px 32px;gap:16px;background:var(--canvas)}
+.unemp-sticky{position:sticky;top:92px;height:calc(100vh - 92px);display:flex;flex-direction:column;justify-content:center;padding:24px 32px;gap:16px;background:var(--canvas)}
 .unemp-chart-wrap{position:relative;width:100%;flex:1;min-height:0}
 .unemp-chart-wrap .flourish-embed{height:100%;min-height:320px}
 /* Overlay encima del iframe — pointer-events none para no bloquear interacción */
@@ -415,10 +379,10 @@
 /* Línea de anotación vertical */
 .unemp-annotation{position:absolute;top:8%;bottom:10%;transition:left .6s cubic-bezier(.25,.46,.45,.94)}
 .ua-line{position:absolute;top:0;bottom:0;left:0;width:2px;background:var(--accent)}
-.ua-bubble{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.85);color:#fff;border-radius:10px;padding:10px 14px;min-width:150px;max-width:190px;backdrop-filter:blur(4px)}
-.ua-year{font-family:var(--ffd);font-size:24px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:4px}
-.ua-text{font-size:11px;line-height:1.5;color:rgba(255,255,255,.7);margin-bottom:5px}
-.ua-stats{font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.02em}
+.ua-bubble{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.95);color:var(--ink);padding:8px 12px;min-width:140px;max-width:180px;box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.ua-year{font-family:var(--ffd);font-size:20px;font-weight:700;color:var(--accent);line-height:1;margin-bottom:4px}
+.ua-text{font-size:11px;line-height:1.5;color:var(--ink);margin-bottom:5px}
+.ua-stats{font-size:10px;color:var(--muted);letter-spacing:.02em}
 /* Leyenda */
 .unemp-legend{display:flex;gap:20px;flex-shrink:0}
 .ul-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
@@ -430,21 +394,11 @@
 .upanel{min-height:50vh;opacity:0;visibility:hidden;pointer-events:none}.upanel.active{opacity:0}
 .upanel-period{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
 .upanel-title{font-family:var(--ffd);font-size:22px;font-weight:600;color:var(--ink);margin-bottom:10px;line-height:1.2}
-.upanel-gap{display:inline-block;font-size:12px;font-weight:600;color:var(--C);background:#e8f0fb;padding:5px 12px;border-radius:20px;margin-bottom:16px}
+.upanel-gap{display:block;font-size:12px;font-weight:700;color:var(--accent);margin-bottom:14px;padding-left:12px;border-left:3px solid var(--accent)}
 .upanel-body{font-size:14px;line-height:1.7;color:var(--muted)}
 @media(max-width:900px){.unemp-scroll-layout{grid-template-columns:1fr}.unemp-sticky{position:relative;top:0;height:auto;min-height:380px;padding:20px}.unemp-panels{border-left:none;border-top:1px solid var(--hairline)}.upanel{min-height:60vh}}
 </style>
 
-<div class="visual-break">
-  <div class="visual-break-bg" style="background:linear-gradient(135deg,#0a0020 0%,#150030 50%,#1a0040 100%)"></div>
-  <div class="visual-break-overlay"></div>
-  <div class="visual-break-year">2024</div>
-  <div class="visual-break-content">
-    <p class="visual-break-label">La paradoja francesa</p>
-    <p class="visual-break-text">Francia necesita inmigración para sostener su demografía. Y sin embargo, la política migratoria más restrictiva desde la Segunda Guerra Mundial fue aprobada en enero de 2024 con votos de la izquierda y la derecha.</p>
-    <p class="visual-break-caption">Loi Immigration · Assemblée Nationale · Janvier 2024</p>
-  </div>
-</div>
 
 <footer><div class="foot-inner">
   <p>© 2026 Vilaseca · Botto · Ferrario · UTDT · Fuentes: INSEE, Ministère de l'Intérieur, Eurostat, UNHCR</p>
@@ -477,7 +431,7 @@ document.querySelectorAll('.spanel').forEach(function(p){po.observe(p);});
 // DONUT
 var DD=[{name:'Haití',flag:'ht',reg:77,irr:23,total:'104 K'},{name:'Túnez',flag:'tn',reg:81,irr:19,total:'391 K'},{name:'Argelia',flag:'dz',reg:84,irr:16,total:'1.004 K'},{name:'Marruecos',flag:'ma',reg:85,irr:15,total:'932 K'},{name:'Turquía',flag:'tr',reg:88,irr:12,total:'279 K'},{name:'Italia',flag:'it',reg:97,irr:3,total:'279 K'},{name:'Portugal',flag:'pt',reg:98,irr:2,total:'574 K'},{name:'España',flag:'es',reg:98,irr:2,total:'239 K'}];
 var CR='#1a5cad',CI='#c94f28',cd=-1;
-function mkDonut(reg,irr){var ns='http://www.w3.org/2000/svg';var s=200;var svg=document.createElementNS(ns,'svg');svg.setAttribute('width',s);svg.setAttribute('height',s);svg.setAttribute('viewBox','0 0 '+s+' '+s);var cx=100,cy=100,R=90,r=58;[[reg,CR],[irr,CI]].reduce(function(st,pr){var pct=pr[0],col=pr[1];var a=(pct/100)*2*Math.PI,e=st+a,lg=a>Math.PI?1:0;var p=document.createElementNS(ns,'path');p.setAttribute('d','M'+(cx+R*Math.cos(st))+','+(cy+R*Math.sin(st))+' A'+R+','+R+',0,'+lg+',1,'+(cx+R*Math.cos(e))+','+(cy+R*Math.sin(e))+' L'+(cx+r*Math.cos(e))+','+(cy+r*Math.sin(e))+' A'+r+','+r+',0,'+lg+',0,'+(cx+r*Math.cos(st))+','+(cy+r*Math.sin(st))+' Z');p.setAttribute('fill',col);p.setAttribute('stroke','#fff');p.setAttribute('stroke-width','2');svg.appendChild(p);return e;},-Math.PI/2);return svg;}
+function mkDonut(reg,irr){var ns='http://www.w3.org/2000/svg';var s=260;var svg=document.createElementNS(ns,'svg');svg.setAttribute('width',s);svg.setAttribute('height',s);svg.setAttribute('viewBox','0 0 '+s+' '+s);var cx=130,cy=130,R=117,r=75;[[reg,CR],[irr,CI]].reduce(function(st,pr){var pct=pr[0],col=pr[1];var a=(pct/100)*2*Math.PI,e=st+a,lg=a>Math.PI?1:0;var p=document.createElementNS(ns,'path');p.setAttribute('d','M'+(cx+R*Math.cos(st))+','+(cy+R*Math.sin(st))+' A'+R+','+R+',0,'+lg+',1,'+(cx+R*Math.cos(e))+','+(cy+R*Math.sin(e))+' L'+(cx+r*Math.cos(e))+','+(cy+r*Math.sin(e))+' A'+r+','+r+',0,'+lg+',0,'+(cx+r*Math.cos(st))+','+(cy+r*Math.sin(st))+' Z');p.setAttribute('fill',col);p.setAttribute('stroke','#fff');p.setAttribute('stroke-width','2');svg.appendChild(p);return e;},-Math.PI/2);return svg;}
 var dpReader=document.getElementById('dpanel-reader');
 function setDpReader(i){var panels=document.querySelectorAll('.dpanel');if(!panels[i]||!dpReader)return;dpReader.style.opacity='0';var html=panels[i].innerHTML;setTimeout(function(){dpReader.innerHTML=html;dpReader.style.opacity='1';},180);}
 function udot(i){if(i===cd)return;cd=i;var d=DD[i];var w=document.getElementById('big-donut-wrap');w.innerHTML='';w.appendChild(mkDonut(d.reg,d.irr));var c=document.createElement('div');c.className='big-donut-center';c.innerHTML='<span class="big-donut-pct">'+d.reg+'%</span><span class="big-donut-sub">regular</span>';w.appendChild(c);document.getElementById('big-donut-country').textContent=d.name;document.getElementById('big-donut-total').textContent=d.total+' residentes';document.querySelectorAll('.di-pip').forEach(function(p,j){p.classList.toggle('active',j===i);});setDpReader(i);}

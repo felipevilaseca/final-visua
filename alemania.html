@@ -20,7 +20,7 @@
     .nav-title{font-family:var(--ffd);font-size:12px;color:#fff}
     .nav-current{font-size:12px;color:rgba(255,255,255,.65)}
     /* SWITCHER */
-    .country-switcher{background:var(--parch);border-bottom:1px solid var(--hairline);padding:0 24px}
+    .country-switcher{background:var(--parch);border-bottom:1px solid var(--hairline);padding:0 24px;position:sticky;top:44px;z-index:190}
     .switcher-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;height:48px}
     .sw-item{display:flex;align-items:center;gap:8px;padding:0 20px;height:100%;text-decoration:none;font-size:13px;color:var(--muted);border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap}
     .sw-item img{width:20px;height:auto;border-radius:2px} .sw-item:hover{color:var(--ink)}
@@ -36,8 +36,8 @@
     .stats-strip{display:flex;gap:36px;flex-wrap:wrap;padding:24px 0;border-top:1px solid var(--hairline);position:relative}
     .stats-strip::before{content:'';position:absolute;top:-1px;left:0;height:2px;width:0;background:var(--accent);transition:width .85s cubic-bezier(.25,.46,.45,.94)}
     .stats-strip.in-view::before{width:100%}
-    .stat{display:flex;flex-direction:column;gap:4px;opacity:0;transform:translateY(18px);transition:opacity .5s,transform .5s}
-    .stat.in-view{opacity:1;transform:none} .stat:nth-child(2){transition-delay:.12s} .stat:nth-child(3){transition-delay:.24s}
+    .stat{display:flex;flex-direction:column;gap:4px;opacity:0;transform:translateY(18px);transition:opacity .9s,transform .9s}
+    .stat.in-view{opacity:1;transform:none} .stat:nth-child(2){transition-delay:.4s} .stat:nth-child(3){transition-delay:.8s}
     .stat-num{font-family:var(--ffd);font-size:clamp(26px,3vw,38px);font-weight:600;line-height:1;color:var(--accent)}
     .stat-label{font-size:11px;color:var(--muted)}
     .hero-flag-wrap{flex-shrink:0;width:clamp(100px,18vw,180px);will-change:transform}
@@ -86,7 +86,7 @@
     #de-map path{cursor:default;transition:fill .55s cubic-bezier(.25,.46,.45,.94)}
     .smap-footer{width:100%;max-width:520px;display:flex;align-items:center;justify-content:space-between;gap:12px}
     .smap-legend{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}
-    .smap-legend-bar{width:80px;height:8px;border-radius:4px;background:linear-gradient(to right,#dce9f5,#08306b)}
+    .smap-legend-bar{width:80px;height:8px;border-radius:4px;background:linear-gradient(to right,#fff3e0,#854F0B)}
     .smap-total{font-size:12px;color:var(--muted);text-align:right}
     .smap-total strong{font-family:var(--ffd);font-size:15px;color:var(--ink);display:block}
     .scroll-panels{border-left:1px solid var(--hairline);background:var(--parch);position:relative}
@@ -95,19 +95,19 @@
     .spanel.active{opacity:0}
     .spanel-year{font-family:var(--ffd);font-size:52px;font-weight:700;line-height:1;color:var(--accent);margin-bottom:6px}
     .spanel-event{font-family:var(--ffd);font-size:16px;font-weight:600;color:var(--ink);margin-bottom:14px}
-    .spanel-stat{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:16px;padding:7px 12px;background:var(--canvas);border-radius:8px;border:1px solid var(--hairline);display:inline-block}
+    .spanel-stat{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:14px;display:block;letter-spacing:.01em}
     .spanel-body{font-size:14px;line-height:1.7;color:var(--muted)}
     /* DONUT */
     .donut-scroll-layout{display:grid;grid-template-columns:1fr 400px;align-items:start;border-top:1px solid var(--hairline)}
     .donut-sticky{position:sticky;top:44px;height:calc(100vh - 44px);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:32px 40px;background:var(--canvas);gap:18px}
-    .big-donut-wrap{position:relative;width:200px;height:200px;flex-shrink:0;transition:transform .3s}
+    .big-donut-wrap{position:relative;width:260px;height:260px;flex-shrink:0;transition:transform .3s}
     .big-donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
     .big-donut-pct{display:block;font-family:var(--ffd);font-size:38px;font-weight:700;line-height:1;color:var(--C);transition:all .4s}
     .big-donut-sub{display:block;font-size:11px;color:var(--muted);margin-top:3px}
     .big-donut-country{font-family:var(--ffd);font-size:20px;font-weight:700;color:var(--ink);text-align:center}
     .big-donut-total{font-size:12px;color:var(--muted);text-align:center}
-    .donut-index{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:260px}
-    .di-pip{width:30px;height:30px;border-radius:50%;border:2px solid var(--hairline);overflow:hidden;transition:border-color .3s,transform .25s;cursor:pointer}
+    .donut-index{display:flex;flex-wrap:nowrap;gap:8px;justify-content:center;max-width:320px}
+    .di-pip{width:30px;height:30px;border-radius:4px;border:2px solid var(--hairline);overflow:hidden;transition:border-color .3s,transform .25s;cursor:pointer}
     .di-pip img{width:100%;height:100%;object-fit:cover;display:block}
     .di-pip.active{border-color:var(--C);transform:scale(1.25)}
     .donut-legend{display:flex;gap:16px}
@@ -188,30 +188,6 @@
   <div class="hero-flag-wrap"><img src="https://flagcdn.com/w320/de.png" alt="Alemania"></div>
 </div></section>
 
-<!-- CAP 1 -->
-<div class="chapter"><div class="chapter-inner">
-  <p class="chapter-num">Capítulo 1 · 1955–2000</p>
-  <h2 class="chapter-title">Los que vinieron a quedarse dos años</h2>
-  <p class="chapter-body">En 1961, el gobierno alemán firmó con Turquía un acuerdo de reclutamiento de trabajadores temporales — los <em style="color:rgba(255,255,255,.7)">Gastarbeiter</em>. Vendrían, trabajarían en las fábricas del Wirtschaftswunder, y volverían. Ninguno de los dos lados imaginó que estaban firmando el acta de fundación de una nueva Alemania.</p>
-</div></div>
-
-<div class="visual-break">
-  <div class="visual-break-bg" style="background:linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%)"></div>
-  <div class="visual-break-overlay"></div>
-  <div class="visual-break-year">1961</div>
-  <div class="visual-break-content">
-    <p class="visual-break-label">Turquía · Acuerdo bilateral</p>
-    <p class="visual-break-text">El primer Gastarbeiter turco llega a Múnich el 27 de octubre de 1961. Vino a quedarse dos años. Su nieto nació en Alemania.</p>
-    <p class="visual-break-caption">Bundesarchiv · Fondo Gastarbeiter 1955–1973</p>
-  </div>
-</div>
-
-<!-- CAP 2 -->
-<div class="chapter"><div class="chapter-inner">
-  <p class="chapter-num">Capítulo 2 · 1992–2023</p>
-  <h2 class="chapter-title">Tres décadas en un mapa</h2>
-  <p class="chapter-body">El oeste siempre más oscuro que el este. La reunificación no borró la brecha demográfica. Lo que el mapa muestra es también un mapa de oportunidad económica: los inmigrantes siguen el dinero.</p>
-</div></div>
 
 <div class="viz-section" style="border-top:none">
   <div class="viz-text">
@@ -273,18 +249,6 @@
   <p class="quote-attr"><strong>Angela Merkel</strong> · 31 de agosto de 2015 <span style="display:block;margin-top:6px;font-style:italic">"Lo vamos a lograr" — tres palabras que dividieron a Europa</span></p>
 </div></div>
 
-<div class="counters-section"><div class="counters-inner">
-  <div class="counter-item"><div class="counter-num">890 K</div><div class="counter-label">solicitudes de asilo<br>solo en 2015</div></div>
-  <div class="counter-item"><div class="counter-num">16 años</div><div class="counter-label">consecutivos como mayor receptor<br>de asilo en Europa occidental</div></div>
-  <div class="counter-item"><div class="counter-num">24%</div><div class="counter-label">de los habitantes de Alemania<br>tiene origen migratorio en 2023</div></div>
-</div></div>
-
-<!-- CAP 3 -->
-<div class="chapter"><div class="chapter-inner">
-  <p class="chapter-num">Capítulo 3 · Composición</p>
-  <h2 class="chapter-title">No todos los caminos son iguales</h2>
-  <p class="chapter-body">Un polaco con libre circulación europea y un afgano que cruzó los Balcanes sin documentos son dos realidades jurídicamente opuestas. El origen define el estatus. El estatus define la vida.</p>
-</div></div>
 
 <div class="viz-section" style="border-top:none">
   <div class="viz-text">
@@ -357,17 +321,6 @@
   </div>
 </div>
 
-<div class="visual-break">
-  <div class="visual-break-bg" style="background:linear-gradient(135deg,#0a0a0a 0%,#1a0a00 50%,#2d1500 100%)"></div>
-  <div class="visual-break-overlay"></div>
-  <div class="visual-break-year">2023</div>
-  <div class="visual-break-content">
-    <p class="visual-break-label">La paradoja alemana</p>
-    <p class="visual-break-text">Alemania envejece más rápido que cualquier país de Europa occidental. Sin inmigración sostenida, su sistema de pensiones colapsa en 2040. Y sin embargo, el partido que más creció en 2023 fue el AfD — sobre una plataforma antiinmigración.</p>
-    <p class="visual-break-caption">Statistisches Bundesamt · Prognose 2023</p>
-  </div>
-</div>
-
 <footer><div class="foot-inner">
   <p>© 2026 Vilaseca · Botto · Ferrario · UTDT · Fuentes: Destatis, Eurostat, BAMF, UNHCR</p>
   <nav class="foot-nav">
@@ -386,7 +339,7 @@ var FRAMES=[
   {year:'2023',event:'Máximo histórico',total:'13,5 M',data:{'Nordrhein-Westfalen':39,'Bayern':25.5,'Baden-Württemberg':24.5,'Niedersachsen':12.5,'Hessen':17,'Sachsen':3.5,'Rheinland-Pfalz':6.5,'Berlin':12,'Schleswig-Holstein':4.2,'Brandenburg':2.5,'Sachsen-Anhalt':2,'Thüringen':2,'Hamburg':5.5,'Mecklenburg-Vorpommern':1.3,'Saarland':1.4,'Bremen':1.8}}
 ];
 var CM=42,cf=0,mp=null;
-var cs=d3.scaleSequential(d3.interpolateBlues).domain([0,CM]);
+var cs=d3.scaleSequential(function(t){return d3.interpolateRgb('#fff3e0','#854F0B')(t);}).domain([0,CM]);
 var tt=document.getElementById('map-tooltip');
 var spReader=document.getElementById('spanel-reader');
 function setSpReader(i){var panels=document.querySelectorAll('.spanel');if(!panels[i]||!spReader)return;spReader.style.opacity='0';var html=panels[i].innerHTML;setTimeout(function(){spReader.innerHTML=html;spReader.style.opacity='1';},180);}
@@ -404,7 +357,7 @@ var dpReader=document.getElementById('dpanel-reader');
 function setDpReader(i){var panels=document.querySelectorAll('.dpanel');if(!panels[i]||!dpReader)return;dpReader.style.opacity='0';var html=panels[i].innerHTML;setTimeout(function(){dpReader.innerHTML=html;dpReader.style.opacity='1';},180);}
 function udot(i){if(i===cd)return;cd=i;var d=DD[i];
   var w=document.getElementById('big-donut-wrap');w.innerHTML='';
-  var svg=mkDonut(d.reg,d.irr,200);w.appendChild(svg);
+  var svg=mkDonut(d.reg,d.irr,260);w.appendChild(svg);
   var c=document.createElement('div');c.className='big-donut-center';c.innerHTML='<span class="big-donut-pct">'+d.reg+'%</span><span class="big-donut-sub">regular</span>';w.appendChild(c);
   document.getElementById('big-donut-country').textContent=d.name;
   document.getElementById('big-donut-total').textContent=d.total+' residentes';
