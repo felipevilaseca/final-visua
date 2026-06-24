@@ -430,7 +430,31 @@
 .quiz-result-msg{font-family:var(--ffd);font-size:18px;font-weight:600;color:var(--ink);margin-bottom:22px;line-height:1.4}
 .quiz-retry{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:#fff;border:none;border-radius:9999px;padding:11px 22px;font-family:var(--fft);font-size:14px;font-weight:400;letter-spacing:-0.224px;cursor:pointer;transition:transform .1s}
 .quiz-retry:active{transform:scale(0.95)}
+
+.quiz-intro{background:var(--black);min-height:50vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px 24px}
+.quiz-intro-num{position:absolute;font-family:var(--ffd);font-size:clamp(180px,30vw,360px);font-weight:700;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none}
+.quiz-intro-inner{position:relative;z-index:1;text-align:center;max-width:520px}
+.qi-eyebrow{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.qi-title{font-family:var(--ffd);font-size:clamp(28px,4vw,44px);font-weight:600;line-height:1.1;color:#fff;margin-bottom:14px;letter-spacing:-0.374px}
+.qi-body{font-size:15px;line-height:1.6;color:rgba(255,255,255,.55);margin-bottom:28px}
+.qi-chevron{display:flex;justify-content:center;color:rgba(255,255,255,.4);animation:qiBounce 2.2s ease-in-out infinite}
+.qi-chevron svg{width:20px;height:20px}
+@keyframes qiBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 </style>
+
+<section class="quiz-intro">
+  <div class="quiz-intro-num">?</div>
+  <div class="quiz-intro-inner">
+    <p class="qi-eyebrow">Fin de las visualizaciones</p>
+    <h2 class="qi-title">¿Cuánto te quedó?</h2>
+    <p class="qi-body">Repasaste los datos de inmigración en Francia. Ahora pongamos a prueba lo que aprendiste con tres preguntas rápidas.</p>
+    <div class="qi-chevron">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M5 7l5 6 5-6"/>
+      </svg>
+    </div>
+  </div>
+</section>
 
 <section class="quiz-section">
   <div class="quiz-inner">
