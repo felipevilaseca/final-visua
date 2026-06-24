@@ -74,7 +74,8 @@
     #fr-map{width:100%;max-width:520px}#fr-map svg{display:block;width:100%;height:auto}#fr-map path{cursor:default;transition:fill .55s cubic-bezier(.25,.46,.45,.94)}
     .smap-footer{width:100%;max-width:520px;display:flex;align-items:center;justify-content:space-between;gap:12px}
     .smap-legend{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}
-    .smap-legend-bar{width:80px;height:8px;border-radius:4px;background:linear-gradient(to right,#dce9f5,#08306b)}
+    .smap-legend-bubbles{display:flex;align-items:center;gap:7px}
+    .sl-bubble{display:inline-block;border-radius:50%;background:#08306b;opacity:.55;border:1.4px solid #08306b;flex-shrink:0}
     .smap-total{font-size:12px;color:var(--muted);text-align:right}.smap-total strong{font-family:var(--ffd);font-size:15px;color:var(--ink);display:block}
     .scroll-panels{border-left:1px solid var(--hairline);background:var(--parch);position:relative}
     .spanel-reader{position:sticky;top:44px;height:calc(100vh - 44px);display:flex;flex-direction:column;justify-content:center;padding:40px 36px;background:var(--parch);z-index:2;transition:opacity 0.22s}
@@ -161,7 +162,7 @@
 
 <div class="viz-section" style="border-top:none">
   <div class="viz-text">
-    <p class="eyebrow">Visualización 01 · Distribución territorial</p>
+    <p class="eyebrow">Distribución territorial</p>
     <h2 class="section-title">Población extranjera residente por región, 1992–2023</h2>
     <p class="section-body">Île-de-France concentra siempre más del 35% del total nacional. Scrolleá para ver cómo creció el resto.</p>
   </div>
@@ -173,7 +174,7 @@
       </div>
       <div id="fr-map"></div>
       <div class="smap-footer">
-        <div class="smap-legend"><span>0</span><div class="smap-legend-bar"></div><span>2,5 M</span></div>
+        <div class="smap-legend"><span>0</span><div class="smap-legend-bubbles"><span class="sl-bubble" style="width:7px;height:7px"></span><span class="sl-bubble" style="width:26px;height:26px"></span></div><span>2,5 M</span></div>
         <div class="smap-total">Total residentes<strong id="smap-total-val">3,6 M</strong></div>
       </div>
     </div>
@@ -228,7 +229,7 @@
 
 <div class="viz-section" style="border-top:none">
   <div class="viz-text">
-    <p class="eyebrow">Visualización 02 · Tipo de migración</p>
+    <p class="eyebrow">Tipo de migración</p>
     <h2 class="section-title">Regular vs. irregular por país de origen</h2>
     <p class="section-body">Ordenado de mayor a menor irregularidad. Los países del Magreb y el Caribe concentran la mayor tasa de irregularidad relativa.</p>
   </div>
@@ -300,7 +301,7 @@
 
 <div class="viz-section" style="border-top:none">
   <div class="viz-text">
-    <p class="eyebrow">Visualización 03 · Mercado laboral</p>
+    <p class="eyebrow">Mercado laboral</p>
     <h2 class="section-title">Desempleo: inmigrantes vs. nativos, 1995–2025</h2>
     <p class="section-body">Scrolleá para recorrer los momentos clave. La zona gris es la brecha — cuánto más desempleados están los inmigrantes.</p>
   </div>
@@ -555,14 +556,22 @@ var FR_FRAMES=[
   {year:'2020',event:'Pandemia y crecimiento',total:'4,9 M',data:{'Île-de-France':19.0,'Auvergne-Rhône-Alpes':7.0,"Provence-Alpes-Côte d'Azur":5.9,'Occitanie':3.5,'Nouvelle-Aquitaine':2.9,'Hauts-de-France':2.8,'Grand Est':3.5,'Normandie':1.3,'Pays de la Loire':1.7,'Bretagne':1.0,'Bourgogne-Franche-Comté':1.1,'Centre-Val de Loire':1.1,'Corse':0.6}},
   {year:'2023',event:'Récord histórico',total:'5,5 M',data:{'Île-de-France':20.9,'Auvergne-Rhône-Alpes':8.0,"Provence-Alpes-Côte d'Azur":6.7,'Occitanie':4.1,'Nouvelle-Aquitaine':3.4,'Hauts-de-France':3.2,'Grand Est':4.0,'Normandie':1.5,'Pays de la Loire':2.1,'Bretagne':1.3,'Bourgogne-Franche-Comté':1.3,'Centre-Val de Loire':1.3,'Corse':0.7}}
 ];
-var CM=25,cf=0,mp=null;
-var cs=d3.scaleSequential(d3.interpolateBlues).domain([0,CM]);
+var CM=25,cf=0,mp=null,rs=null;
 var tt=document.getElementById('fr-tip');
 function getName(p){return p.nom||p.name||'';}
 var spReader=document.getElementById('spanel-reader');
 function setSpReader(i){var panels=document.querySelectorAll('.spanel');if(!panels[i]||!spReader)return;spReader.style.opacity='0';var html=panels[i].innerHTML;setTimeout(function(){spReader.innerHTML=html;spReader.style.opacity='1';},180);}
-function uf(i){cf=i;var f=FR_FRAMES[i];document.getElementById('smap-year').textContent=f.year;document.getElementById('smap-event').textContent=f.event;document.getElementById('smap-total-val').textContent=f.total;setSpReader(i);if(mp)mp.transition().duration(600).ease(d3.easeCubicInOut).attr('fill',function(d){return cs(f.data[getName(d.properties)]||0);});}
-function bm(geo){var el=document.getElementById('fr-map'),W=el.offsetWidth||500,H=Math.round(W*1.0);var svg=d3.select('#fr-map').append('svg').attr('viewBox','0 0 '+W+' '+H).style('width','100%').style('height','auto');var proj=d3.geoMercator().fitSize([W,H],geo);var path=d3.geoPath().projection(proj);mp=svg.selectAll('path').data(geo.features).enter().append('path').attr('d',path).attr('stroke','#fff').attr('stroke-width',1).attr('fill',function(d){return cs(FR_FRAMES[0].data[getName(d.properties)]||0);}).on('mousemove',function(e,d){var n=getName(d.properties),v=FR_FRAMES[cf].data[n]||0;tt.style.display='block';tt.style.left=(e.clientX+14)+'px';tt.style.top=(e.clientY-14)+'px';document.getElementById('tt-state-fr').textContent=n;document.getElementById('tt-val-fr').textContent=(v*100).toFixed(0)+' K extranjeros';}).on('mouseleave',function(){tt.style.display='none';});}
+function uf(i){cf=i;var f=FR_FRAMES[i];document.getElementById('smap-year').textContent=f.year;document.getElementById('smap-event').textContent=f.event;document.getElementById('smap-total-val').textContent=f.total;setSpReader(i);if(mp&&rs)mp.transition().duration(600).ease(d3.easeCubicInOut).attr('r',function(d){return rs(f.data[getName(d.properties)]||0);});}
+function bm(geo){var el=document.getElementById('fr-map'),W=el.offsetWidth||500,H=Math.round(W*1.0);var svg=d3.select('#fr-map').append('svg').attr('viewBox','0 0 '+W+' '+H).style('width','100%').style('height','auto');var proj=d3.geoMercator().fitSize([W,H],geo);var path=d3.geoPath().projection(proj);
+  svg.selectAll('path').data(geo.features).enter().append('path').attr('d',path).attr('fill','#e9e9eb').attr('stroke','#fff').attr('stroke-width',1);
+  rs=d3.scaleSqrt().domain([0,CM]).range([0,W*0.09]);
+  mp=svg.selectAll('circle').data(geo.features).enter().append('circle')
+    .attr('cx',function(d){return path.centroid(d)[0];}).attr('cy',function(d){return path.centroid(d)[1];})
+    .attr('r',function(d){return rs(FR_FRAMES[0].data[getName(d.properties)]||0);})
+    .attr('fill','#08306b').attr('fill-opacity',0.55).attr('stroke','#08306b').attr('stroke-width',1.4).style('cursor','pointer')
+    .on('mousemove',function(e,d){var n=getName(d.properties),v=FR_FRAMES[cf].data[n]||0;tt.style.display='block';tt.style.left=(e.clientX+14)+'px';tt.style.top=(e.clientY-14)+'px';document.getElementById('tt-state-fr').textContent=n;document.getElementById('tt-val-fr').textContent=(v*100).toFixed(0)+' K extranjeros';})
+    .on('mouseleave',function(){tt.style.display='none';});
+}
 fetch('https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/regions.geojson').then(function(r){return r.json();}).then(bm).catch(function(){document.getElementById('fr-map').innerHTML='<p style="padding:24px;color:#aaa;font-size:13px">Mapa no disponible offline.</p>';});
 var po=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)uf(+e.target.dataset.frame);});},{rootMargin:'-10% 0px -10% 0px',threshold:0});
 document.querySelectorAll('.spanel').forEach(function(p){po.observe(p);});

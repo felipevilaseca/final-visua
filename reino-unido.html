@@ -73,7 +73,8 @@
     #uk-map{width:100%;max-width:360px}#uk-map svg{display:block;width:100%;height:auto}#uk-map path{cursor:default;transition:fill .55s cubic-bezier(.25,.46,.45,.94)}
     .smap-footer{width:100%;max-width:360px;display:flex;align-items:center;justify-content:space-between;gap:12px}
     .smap-legend{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}
-    .smap-legend-bar{width:80px;height:8px;border-radius:4px;background:linear-gradient(to right,#ffe8e8,#8b1a1a)}
+    .smap-legend-bubbles{display:flex;align-items:center;gap:7px}
+    .sl-bubble{display:inline-block;border-radius:50%;background:#8b1a1a;opacity:.55;border:1.4px solid #8b1a1a;flex-shrink:0}
     .smap-total{font-size:12px;color:var(--muted);text-align:right}.smap-total strong{font-family:var(--ffd);font-size:15px;color:var(--ink);display:block}
     .scroll-panels{border-left:1px solid var(--hairline);background:var(--parch);position:relative}
     .spanel-reader{position:sticky;top:44px;height:calc(100vh - 44px);display:flex;flex-direction:column;justify-content:center;padding:40px 36px;background:var(--parch);z-index:2;transition:opacity 0.22s}
@@ -177,7 +178,7 @@
 
 <div class="viz-section" style="border-top:none">
   <div class="viz-text">
-    <p class="eyebrow">Visualización 01 · Distribución territorial</p>
+    <p class="eyebrow">Distribución territorial</p>
     <h2 class="section-title">Población extranjera residente por región, 1992–2023</h2>
     <p class="section-body">Londres concentra casi el 36% del total. Scrolleá para ver el antes y el después del Brexit.</p>
   </div>
@@ -189,7 +190,7 @@
       </div>
       <div id="uk-map"></div>
       <div class="smap-footer">
-        <div class="smap-legend"><span>0</span><div class="smap-legend-bar"></div><span>3 M</span></div>
+        <div class="smap-legend"><span>0</span><div class="smap-legend-bubbles"><span class="sl-bubble" style="width:7px;height:7px"></span><span class="sl-bubble" style="width:26px;height:26px"></span></div><span>3 M</span></div>
         <div class="smap-total">Total residentes<strong id="smap-total-val">1,9 M</strong></div>
       </div>
     </div>
@@ -271,7 +272,7 @@
 
 <div class="flourish-section">
   <div class="viz-text">
-    <p class="eyebrow">Visualización 02 · Inmigración en el tiempo</p>
+    <p class="eyebrow">Inmigración en el tiempo</p>
     <h2 class="section-title">¿Cuántos nacieron fuera del Reino Unido?</h2>
     <p class="section-body">Arrastrá la línea de tiempo para ver cómo cambió la proporción desde la posguerra hasta hoy.</p>
   </div>
@@ -307,7 +308,7 @@
 <!-- VIZ 03 DONUTS -->
 <div class="viz-section" style="border-top:none">
   <div class="viz-text">
-    <p class="eyebrow">Visualización 03 · Tipo de migración</p>
+    <p class="eyebrow">Tipo de migración</p>
     <h2 class="section-title">Regular vs. irregular por país de origen</h2>
     <p class="section-body">Ordenado de mayor a menor irregularidad. El legado imperial define los principales orígenes.</p>
   </div>
@@ -525,14 +526,22 @@ var UK_FRAMES=[
   {year:'2020',event:'Brexit: el experimento',total:'6,2 M',data:{'London':26.0,'South East':7.2,'North West':5.6,'West Midlands':5.8,'Yorkshire and The Humber':3.9,'Eastern':4.7,'East Midlands':4.3,'South West':2.9,'North East':1.1,'Scotland':3.2,'Wales':1.8}},
   {year:'2023',event:'El Brexit no redujo la inmigración',total:'7,7 M',data:{'London':27.5,'South East':9.0,'North West':7.0,'West Midlands':7.2,'Yorkshire and The Humber':5.0,'Eastern':6.0,'East Midlands':5.5,'South West':3.8,'North East':1.4,'Scotland':4.0,'Wales':2.4}}
 ];
-var CM=30,cf=0,mp=null;
-var cs=d3.scaleSequential(function(t){return d3.interpolateRgb('#ffe8e8','#8b1a1a')(t);}).domain([0,CM]);
+var CM=30,cf=0,mp=null,rs=null;
 var tt=document.getElementById('uk-tip');
 function getName(p){return p.EER13NM||p.eer13nm||p.name||p.NAME||'';}
 var spReader=document.getElementById('spanel-reader');
 function setSpReader(i){var panels=document.querySelectorAll('.spanel');if(!panels[i]||!spReader)return;spReader.style.opacity='0';var html=panels[i].innerHTML;setTimeout(function(){spReader.innerHTML=html;spReader.style.opacity='1';},180);}
-function uf(i){cf=i;var f=UK_FRAMES[i];document.getElementById('smap-year').textContent=f.year;document.getElementById('smap-event').textContent=f.event;document.getElementById('smap-total-val').textContent=f.total;setSpReader(i);if(mp)mp.transition().duration(600).ease(d3.easeCubicInOut).attr('fill',function(d){return cs(f.data[getName(d.properties)]||0);});}
-function bm(geo){var el=document.getElementById('uk-map'),W=el.offsetWidth||340,H=Math.round(W*1.25);var svg=d3.select('#uk-map').append('svg').attr('viewBox','0 0 '+W+' '+H).style('width','100%').style('height','auto');var proj=d3.geoMercator().fitSize([W,H],geo);var path=d3.geoPath().projection(proj);mp=svg.selectAll('path').data(geo.features).enter().append('path').attr('d',path).attr('stroke','#fff').attr('stroke-width',1).attr('fill',function(d){return cs(UK_FRAMES[0].data[getName(d.properties)]||0);}).on('mousemove',function(e,d){var n=getName(d.properties),v=UK_FRAMES[cf].data[n]||0;tt.style.display='block';tt.style.left=(e.clientX+14)+'px';tt.style.top=(e.clientY-14)+'px';document.getElementById('tt-state-uk').textContent=n;document.getElementById('tt-val-uk').textContent=(v*100).toFixed(0)+' K extranjeros';}).on('mouseleave',function(){tt.style.display='none';});}
+function uf(i){cf=i;var f=UK_FRAMES[i];document.getElementById('smap-year').textContent=f.year;document.getElementById('smap-event').textContent=f.event;document.getElementById('smap-total-val').textContent=f.total;setSpReader(i);if(mp&&rs)mp.transition().duration(600).ease(d3.easeCubicInOut).attr('r',function(d){return rs(f.data[getName(d.properties)]||0);});}
+function bm(geo){var el=document.getElementById('uk-map'),W=el.offsetWidth||340,H=Math.round(W*1.25);var svg=d3.select('#uk-map').append('svg').attr('viewBox','0 0 '+W+' '+H).style('width','100%').style('height','auto');var proj=d3.geoMercator().fitSize([W,H],geo);var path=d3.geoPath().projection(proj);
+  svg.selectAll('path').data(geo.features).enter().append('path').attr('d',path).attr('fill','#e9e9eb').attr('stroke','#fff').attr('stroke-width',1);
+  rs=d3.scaleSqrt().domain([0,CM]).range([0,W*0.09]);
+  mp=svg.selectAll('circle').data(geo.features).enter().append('circle')
+    .attr('cx',function(d){return path.centroid(d)[0];}).attr('cy',function(d){return path.centroid(d)[1];})
+    .attr('r',function(d){return rs(UK_FRAMES[0].data[getName(d.properties)]||0);})
+    .attr('fill','#8b1a1a').attr('fill-opacity',0.55).attr('stroke','#8b1a1a').attr('stroke-width',1.4).style('cursor','pointer')
+    .on('mousemove',function(e,d){var n=getName(d.properties),v=UK_FRAMES[cf].data[n]||0;tt.style.display='block';tt.style.left=(e.clientX+14)+'px';tt.style.top=(e.clientY-14)+'px';document.getElementById('tt-state-uk').textContent=n;document.getElementById('tt-val-uk').textContent=(v*100).toFixed(0)+' K extranjeros';})
+    .on('mouseleave',function(){tt.style.display='none';});
+}
 fetch('https://raw.githubusercontent.com/martinjc/UK-GeoJSON/master/json/electoral/gb/eer.json').then(function(r){return r.json();}).then(bm).catch(function(){document.getElementById('uk-map').innerHTML='<p style="padding:24px;color:#aaa;font-size:13px">Mapa no disponible offline.</p>';});
 var po=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)uf(+e.target.dataset.frame);});},{rootMargin:'-10% 0px -10% 0px',threshold:0});
 document.querySelectorAll('.spanel').forEach(function(p){po.observe(p);});
