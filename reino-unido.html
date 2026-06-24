@@ -104,13 +104,13 @@
     .donut-sticky{position:sticky;top:92px;height:calc(100vh - 92px);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:32px 40px;background:var(--canvas);gap:18px}
     .big-donut-wrap{position:relative;width:260px;height:260px;flex-shrink:0}
     .big-donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
-    .big-donut-pct{display:block;font-family:var(--ffd);font-size:38px;font-weight:700;line-height:1;color:var(--C)}
+    .big-donut-pct{display:block;font-family:var(--ffd);font-size:38px;font-weight:700;line-height:1;color:var(--accent)}
     .big-donut-sub{display:block;font-size:11px;color:var(--muted);margin-top:3px}
     .big-donut-country{font-family:var(--ffd);font-size:20px;font-weight:700;color:var(--ink);text-align:center}
     .big-donut-total{font-size:12px;color:var(--muted);text-align:center}
     .donut-index{display:flex;flex-wrap:nowrap;gap:8px;justify-content:center;max-width:320px}
     .di-pip{width:30px;height:30px;border-radius:4px;border:2px solid var(--hairline);overflow:hidden;transition:border-color .3s,transform .25s;cursor:pointer}
-    .di-pip img{width:100%;height:100%;object-fit:cover;display:block}.di-pip.active{border-color:var(--C);transform:scale(1.25)}
+    .di-pip img{width:100%;height:100%;object-fit:cover;display:block}.di-pip.active{border-color:var(--accent);transform:scale(1.25)}
     .donut-legend{display:flex;gap:16px}.dl-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}.dl-sq{width:10px;height:10px;border-radius:2px}
     .donut-panels{border-left:1px solid var(--hairline);background:var(--parch);position:relative}
     .dpanel-reader{position:sticky;top:44px;height:calc(100vh - 44px);display:flex;flex-direction:column;justify-content:center;padding:40px 36px;background:var(--parch);z-index:2;transition:opacity 0.22s}
@@ -268,7 +268,7 @@
       <div class="big-donut-total" id="big-donut-total">185 K residentes</div>
       <div class="donut-index" id="donut-index"></div>
       <div class="donut-legend">
-        <div class="dl-item"><div class="dl-sq" style="background:#0F6E56"></div>Regular</div>
+        <div class="dl-item"><div class="dl-sq" style="background:#c45a5a"></div>Regular</div>
         <div class="dl-item"><div class="dl-sq" style="background:#c94f28"></div>Irregular</div>
       </div>
     </div>
@@ -488,7 +488,7 @@ var po=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isInter
 document.querySelectorAll('.spanel').forEach(function(p){po.observe(p);});
 // DONUT
 var DD=[{name:'Afganistán',flag:'af',reg:74,irr:26,total:'185 K'},{name:'Pakistán',flag:'pk',reg:82,irr:18,total:'780 K'},{name:'Nigeria',flag:'ng',reg:83,irr:17,total:'312 K'},{name:'Bangladesh',flag:'bd',reg:85,irr:15,total:'445 K'},{name:'India',flag:'in',reg:91,irr:9,total:'960 K'},{name:'Rumania',flag:'ro',reg:95,irr:5,total:'1.135 K'},{name:'Polonia',flag:'pl',reg:96,irr:4,total:'850 K'},{name:'Irlanda',flag:'ie',reg:99,irr:1,total:'425 K'}];
-var CR='#0F6E56',CI='#c94f28',cd=-1;
+var CR='#c45a5a',CI='#c94f28',cd=-1;
 function mkDonut(reg,irr){var ns='http://www.w3.org/2000/svg';var s=260;var svg=document.createElementNS(ns,'svg');svg.setAttribute('width',s);svg.setAttribute('height',s);svg.setAttribute('viewBox','0 0 '+s+' '+s);var cx=130,cy=130,R=117,r=75;[[reg,CR],[irr,CI]].reduce(function(st,pr){var pct=pr[0],col=pr[1];var a=(pct/100)*2*Math.PI,e=st+a,lg=a>Math.PI?1:0;var p=document.createElementNS(ns,'path');p.setAttribute('d','M'+(cx+R*Math.cos(st))+','+(cy+R*Math.sin(st))+' A'+R+','+R+',0,'+lg+',1,'+(cx+R*Math.cos(e))+','+(cy+R*Math.sin(e))+' L'+(cx+r*Math.cos(e))+','+(cy+r*Math.sin(e))+' A'+r+','+r+',0,'+lg+',0,'+(cx+r*Math.cos(st))+','+(cy+r*Math.sin(st))+' Z');p.setAttribute('fill',col);p.setAttribute('stroke','#fff');p.setAttribute('stroke-width','2');svg.appendChild(p);return e;},-Math.PI/2);return svg;}
 var dpReader=document.getElementById('dpanel-reader');
 function setDpReader(i){var panels=document.querySelectorAll('.dpanel');if(!panels[i]||!dpReader)return;dpReader.style.opacity='0';var html=panels[i].innerHTML;setTimeout(function(){dpReader.innerHTML=html;dpReader.style.opacity='1';},180);}
