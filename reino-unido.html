@@ -269,7 +269,7 @@
       <div class="donut-index" id="donut-index"></div>
       <div class="donut-legend">
         <div class="dl-item"><div class="dl-sq" style="background:#c45a5a"></div>Regular</div>
-        <div class="dl-item"><div class="dl-sq" style="background:#c94f28"></div>Irregular</div>
+        <div class="dl-item"><div class="dl-sq" style="background:#0F6E56"></div>Irregular</div>
       </div>
     </div>
     <div class="donut-panels">
@@ -488,7 +488,7 @@ var po=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isInter
 document.querySelectorAll('.spanel').forEach(function(p){po.observe(p);});
 // DONUT
 var DD=[{name:'Afganistán',flag:'af',reg:74,irr:26,total:'185 K'},{name:'Pakistán',flag:'pk',reg:82,irr:18,total:'780 K'},{name:'Nigeria',flag:'ng',reg:83,irr:17,total:'312 K'},{name:'Bangladesh',flag:'bd',reg:85,irr:15,total:'445 K'},{name:'India',flag:'in',reg:91,irr:9,total:'960 K'},{name:'Rumania',flag:'ro',reg:95,irr:5,total:'1.135 K'},{name:'Polonia',flag:'pl',reg:96,irr:4,total:'850 K'},{name:'Irlanda',flag:'ie',reg:99,irr:1,total:'425 K'}];
-var CR='#c45a5a',CI='#c94f28',cd=-1;
+var CR='#c45a5a',CI='#0F6E56',cd=-1;
 function mkDonut(reg,irr){var ns='http://www.w3.org/2000/svg';var s=260;var svg=document.createElementNS(ns,'svg');svg.setAttribute('width',s);svg.setAttribute('height',s);svg.setAttribute('viewBox','0 0 '+s+' '+s);var cx=130,cy=130,R=117,r=75;[[reg,CR],[irr,CI]].reduce(function(st,pr){var pct=pr[0],col=pr[1];var a=(pct/100)*2*Math.PI,e=st+a,lg=a>Math.PI?1:0;var p=document.createElementNS(ns,'path');p.setAttribute('d','M'+(cx+R*Math.cos(st))+','+(cy+R*Math.sin(st))+' A'+R+','+R+',0,'+lg+',1,'+(cx+R*Math.cos(e))+','+(cy+R*Math.sin(e))+' L'+(cx+r*Math.cos(e))+','+(cy+r*Math.sin(e))+' A'+r+','+r+',0,'+lg+',0,'+(cx+r*Math.cos(st))+','+(cy+r*Math.sin(st))+' Z');p.setAttribute('fill',col);p.setAttribute('stroke','#fff');p.setAttribute('stroke-width','2');svg.appendChild(p);return e;},-Math.PI/2);return svg;}
 var dpReader=document.getElementById('dpanel-reader');
 function setDpReader(i){var panels=document.querySelectorAll('.dpanel');if(!panels[i]||!dpReader)return;dpReader.style.opacity='0';var html=panels[i].innerHTML;setTimeout(function(){dpReader.innerHTML=html;dpReader.style.opacity='1';},180);}
