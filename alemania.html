@@ -84,7 +84,7 @@
     .section-body{font-size:15px;line-height:1.6;color:var(--muted);max-width:600px}
     /* MAPA SCROLL */
     .scroll-viz-layout{display:grid;grid-template-columns:1fr 360px;align-items:start;border-top:1px solid var(--hairline)}
-    .scroll-map-sticky{position:sticky;top:44px;height:calc(100vh - 44px);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px 32px;gap:14px;background:var(--canvas)}
+    .scroll-map-sticky{position:sticky;top:92px;height:calc(100vh - 92px);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px 32px;gap:14px;background:var(--canvas)}
     .smap-header{display:flex;flex-direction:column;align-items:flex-start;width:100%;max-width:520px}
     .smap-year{font-family:var(--ffd);font-size:clamp(36px,4vw,56px);font-weight:700;line-height:1;color:var(--accent)}
     .smap-event{font-size:14px;color:var(--muted);margin-top:4px}
@@ -97,7 +97,7 @@
     .smap-total{font-size:12px;color:var(--muted);text-align:right}
     .smap-total strong{font-family:var(--ffd);font-size:15px;color:var(--ink);display:block}
     .scroll-panels{border-left:1px solid var(--hairline);background:var(--parch);position:relative}
-    .spanel-reader{position:sticky;top:44px;height:calc(100vh - 44px);display:flex;flex-direction:column;justify-content:center;padding:40px 36px;background:var(--parch);z-index:2;transition:opacity 0.22s}
+    .spanel-reader{position:sticky;top:92px;height:calc(100vh - 92px);display:flex;flex-direction:column;justify-content:center;padding:40px 36px;background:var(--parch);z-index:2;transition:opacity 0.22s}
     .spanel{min-height:50vh;opacity:0;visibility:hidden;pointer-events:none}
     .spanel.active{opacity:0}
     .spanel-year{font-family:var(--ffd);font-size:52px;font-weight:700;line-height:1;color:var(--accent);margin-bottom:6px}
@@ -106,7 +106,7 @@
     .spanel-body{font-size:14px;line-height:1.7;color:var(--muted)}
     /* DONUT */
     .donut-scroll-layout{display:grid;grid-template-columns:1fr 400px;align-items:start;border-top:1px solid var(--hairline)}
-    .donut-sticky{position:sticky;top:44px;height:calc(100vh - 44px);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:32px 40px;background:var(--canvas);gap:18px}
+    .donut-sticky{position:sticky;top:92px;height:calc(100vh - 92px);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:32px 40px;background:var(--canvas);gap:18px}
     .big-donut-wrap{position:relative;width:260px;height:260px;flex-shrink:0;transition:transform .3s}
     .big-donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
     .big-donut-pct{display:block;font-family:var(--ffd);font-size:38px;font-weight:700;line-height:1;color:var(--accent);transition:all .4s}
@@ -121,7 +121,7 @@
     .dl-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
     .dl-sq{width:10px;height:10px;border-radius:2px}
     .donut-panels{border-left:1px solid var(--hairline);background:var(--parch);position:relative}
-    .dpanel-reader{position:sticky;top:44px;height:calc(100vh - 44px);display:flex;flex-direction:column;justify-content:center;padding:40px 36px;background:var(--parch);z-index:2;transition:opacity 0.22s}
+    .dpanel-reader{position:sticky;top:92px;height:calc(100vh - 92px);display:flex;flex-direction:column;justify-content:center;padding:40px 36px;background:var(--parch);z-index:2;transition:opacity 0.22s}
     .dpanel{min-height:50vh;opacity:0;visibility:hidden;pointer-events:none}
     .dpanel.active{opacity:0}
     .dpanel-flag{width:44px;height:auto;border-radius:3px;box-shadow:0 2px 8px rgba(0,0,0,.15);margin-bottom:12px}
@@ -292,16 +292,16 @@
         <p class="dpanel-body">La decisión de Merkel en 2015 aceleró la regularización de cientos de miles. Quienes llegaron después, con sistema más restrictivo, enfrentaron esperas de años. Segunda comunidad no-UE del país.</p>
       </div>
       <div class="dpanel" data-donut="2">
-        <img class="dpanel-flag" src="https://flagcdn.com/w80/tr.png" alt="Turquía">
-        <div class="dpanel-country">Turquía</div><span class="dpanel-tag noue">Comunidad histórica · 60 años de raíces</span>
-        <div class="dpanel-stats"><div><div class="dpanel-stat-num">1,48 M</div><div class="dpanel-stat-lbl">residentes totales</div></div><div><div class="dpanel-stat-num">15%</div><div class="dpanel-stat-lbl">en situación irregular</div></div></div>
-        <p class="dpanel-body">La comunidad más grande. Raíces en los Gastarbeiter de 1961. La mayoría tiene residencia permanente o ciudadanía. La irregularidad actual proviene de nuevas llegadas, no de la diáspora histórica consolidada.</p>
-      </div>
-      <div class="dpanel" data-donut="3">
         <img class="dpanel-flag" src="https://flagcdn.com/w80/iq.png" alt="Iraq">
         <div class="dpanel-country">Iraq</div><span class="dpanel-tag noue">Inestabilidad crónica · oleadas sucesivas</span>
         <div class="dpanel-stats"><div><div class="dpanel-stat-num">381 K</div><div class="dpanel-stat-lbl">residentes totales</div></div><div><div class="dpanel-stat-num">18%</div><div class="dpanel-stat-lbl">en situación irregular</div></div></div>
         <p class="dpanel-body">El colapso de 2003, el ISIS en 2014, la violencia sectaria persistente. Oleadas sucesivas que nunca terminan de regularizarse antes de que llegue la siguiente.</p>
+      </div>
+      <div class="dpanel" data-donut="3">
+        <img class="dpanel-flag" src="https://flagcdn.com/w80/tr.png" alt="Turquía">
+        <div class="dpanel-country">Turquía</div><span class="dpanel-tag noue">Comunidad histórica · 60 años de raíces</span>
+        <div class="dpanel-stats"><div><div class="dpanel-stat-num">1,48 M</div><div class="dpanel-stat-lbl">residentes totales</div></div><div><div class="dpanel-stat-num">15%</div><div class="dpanel-stat-lbl">en situación irregular</div></div></div>
+        <p class="dpanel-body">La comunidad más grande. Raíces en los Gastarbeiter de 1961. La mayoría tiene residencia permanente o ciudadanía. La irregularidad actual proviene de nuevas llegadas, no de la diáspora histórica consolidada.</p>
       </div>
       <div class="dpanel" data-donut="4">
         <img class="dpanel-flag" src="https://flagcdn.com/w80/ua.png" alt="Ucrania">
@@ -399,8 +399,9 @@
     container.innerHTML = '';
 
     var W = container.offsetWidth || 880;
-    var H = Math.round(W * 0.46);
-    var margin = {top:24, right:52, bottom:40, left:62};
+    var calloutH = W>640 ? 132 : 0;
+    var H = Math.round(W * 0.46) + calloutH;
+    var margin = {top:24+calloutH, right:52, bottom:40, left:62};
     var iw = W - margin.left - margin.right;
     var ih = H - margin.top - margin.bottom;
 
@@ -522,9 +523,10 @@
         g.appendChild(fo);
       }
       var peakX=xScale(peakIdx);
-      addCallout(CALLOUTS[0].idx,4,4,172,112,CALLOUTS[0].title,CALLOUTS[0].body,true);
-      addCallout(peakIdx,Math.max(4,peakX-86),52,172,112,CALLOUTS[1].title,CALLOUTS[1].body,true);
-      addCallout(10,iw-182,4,172,112,CALLOUTS[2].title,CALLOUTS[2].body,true);
+      var calloutBoxY=-118;
+      addCallout(CALLOUTS[0].idx,4,calloutBoxY,172,112,CALLOUTS[0].title,CALLOUTS[0].body,true);
+      addCallout(peakIdx,Math.min(iw-176,Math.max(4,peakX-86)),calloutBoxY,172,112,CALLOUTS[1].title,CALLOUTS[1].body,true);
+      addCallout(10,iw-182,calloutBoxY,172,112,CALLOUTS[2].title,CALLOUTS[2].body,true);
     }
 
     // interactive overlay
@@ -745,7 +747,7 @@ var po=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isInter
 document.querySelectorAll('.spanel').forEach(function(p){po.observe(p);});
 
 // DONUT
-var DD=[{name:'Afganistán',flag:'af',reg:72,irr:28,total:'411 K'},{name:'Siria',flag:'sy',reg:78,irr:22,total:'975 K'},{name:'Turquía',flag:'tr',reg:85,irr:15,total:'1,48 M'},{name:'Iraq',flag:'iq',reg:82,irr:18,total:'381 K'},{name:'Ucrania',flag:'ua',reg:91,irr:9,total:'1,18 M'},{name:'Rumania',flag:'ro',reg:97,irr:3,total:'854 K'},{name:'Polonia',flag:'pl',reg:98,irr:2,total:'773 K'},{name:'Italia',flag:'it',reg:98,irr:2,total:'381 K'}];
+var DD=[{name:'Afganistán',flag:'af',reg:72,irr:28,total:'411 K'},{name:'Siria',flag:'sy',reg:78,irr:22,total:'975 K'},{name:'Iraq',flag:'iq',reg:82,irr:18,total:'381 K'},{name:'Turquía',flag:'tr',reg:85,irr:15,total:'1,48 M'},{name:'Ucrania',flag:'ua',reg:91,irr:9,total:'1,18 M'},{name:'Rumania',flag:'ro',reg:97,irr:3,total:'854 K'},{name:'Polonia',flag:'pl',reg:98,irr:2,total:'773 K'},{name:'Italia',flag:'it',reg:98,irr:2,total:'381 K'}];
 var CR='#d9d9d9',CI='#e8894d',cd=-1;
 function mkDonut(reg,irr,size){var ns='http://www.w3.org/2000/svg';var svg=document.createElementNS(ns,'svg');var s=size||200;svg.setAttribute('width',s);svg.setAttribute('height',s);svg.setAttribute('viewBox','0 0 '+s+' '+s);var cx=s/2,cy=s/2,R=s*0.45,r=s*0.29;[[reg,CR],[irr,CI]].reduce(function(st,pr){var pct=pr[0],col=pr[1];var a=(pct/100)*2*Math.PI,e=st+a,lg=a>Math.PI?1:0;var p=document.createElementNS(ns,'path');p.setAttribute('d','M'+(cx+R*Math.cos(st))+','+(cy+R*Math.sin(st))+' A'+R+','+R+',0,'+lg+',1,'+(cx+R*Math.cos(e))+','+(cy+R*Math.sin(e))+' L'+(cx+r*Math.cos(e))+','+(cy+r*Math.sin(e))+' A'+r+','+r+',0,'+lg+',0,'+(cx+r*Math.cos(st))+','+(cy+r*Math.sin(st))+' Z');p.setAttribute('fill',col);p.setAttribute('stroke','#fff');p.setAttribute('stroke-width','2');svg.appendChild(p);return e;},-Math.PI/2);return svg;}
 var dpReader=document.getElementById('dpanel-reader');
